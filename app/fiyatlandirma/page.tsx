@@ -23,24 +23,34 @@ type Campaign = {
 // PricingPackage tipi client componente taşındı
 
 export default async function FiyatlandirmaPage() {
-  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/pricing`, {
-    next: { revalidate: 60 }, // ISR: 60 sn’de bir günceller
-  });
+  let packages: PricingPackage[] = [];
+  let campaign: Campaign | null = null;
 
-  if (!res.ok) {
-    throw new Error('Fiyat bilgileri alınamadı');
+  // Pricing fetch (güvenli)
+  try {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/pricing`, {
+      next: { revalidate: 60 },
+    });
+    if (res.ok) {
+      packages = await res.json();
+    } else {
+      console.error('Pricing fetch failed status:', res.status);
+    }
+  } catch (err) {
+    console.error('Pricing fetch error:', err);
   }
 
-  const packages: PricingPackage[] = await res.json();
-  const campaignRes = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/campaigns`, {
-    next: { revalidate: 60 },
-  });
-
-  let campaign: Campaign | null = null;
-  if (campaignRes.ok) {
-    const campaigns = await campaignRes.json();
-    // Aktif ve fiyatlandırma tipindeki kampanyayı bul
-    campaign = campaigns.find((c: any) => c.isActive && c.type === 'pricing') || null;
+  // Campaign fetch (güvenli) - doğru endpoint /api/campaigns olmalı
+  try {
+    const campaignRes = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/campaigns`, {
+      next: { revalidate: 60 },
+    });
+    if (campaignRes.ok) {
+      const campaigns = await campaignRes.json();
+      campaign = campaigns.find((c: any) => c.isActive && c.type === 'pricing') || null;
+    }
+  } catch (err) {
+    console.error('Campaign fetch error:', err);
   }
 
   return (
@@ -85,7 +95,20 @@ export default async function FiyatlandirmaPage() {
       {/* Paketler ve ek bölümler (client) */}
       <section className="py-20 bg-gradient-to-b from-white to-pink-50">
         <div className="container">
-          <PricingClient packages={packages} campaign={campaign} />
+          {packages.length > 0 ? (
+            <PricingClient packages={packages} campaign={campaign} />
+          ) : (
+            <div className="text-center py-16">
+              <div className="max-w-md mx-auto">
+                <Star className="w-16 h-16 text-pink-500 mx-auto mb-6 opacity-70" />
+                <h3 className="text-2xl font-semibold text-gray-900 mb-4">Paketler şu anda yüklenemedi</h3>
+                <p className="text-gray-600 mb-6">Sunucuya ulaşılamadı veya henüz paket eklenmedi. Daha sonra tekrar deneyin ya da bizimle iletişime geçin.</p>
+                <a href="/iletisim" className="inline-flex items-center px-6 py-3 rounded-lg bg-pink-600 text-white font-medium hover:bg-pink-700 transition-colors">
+                  İletişime Geç
+                </a>
+              </div>
+            </div>
+          )}
         </div>
       </section>
     </div>

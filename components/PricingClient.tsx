@@ -119,6 +119,24 @@ export function PricingClient({ packages, campaign }: Props) {
   const [isReservationModalOpen, setIsReservationModalOpen] = useState(false);
   const [selectedPackage, setSelectedPackage] = useState<string>('');
 
+  // Global boş paket durumu (sunucu hata veya veri yok)
+  if (!packages || packages.length === 0) {
+    return (
+      <div className="space-y-16">
+        <div className="text-center py-24 bg-white rounded-3xl border border-pink-100 shadow-sm">
+          <div className="max-w-md mx-auto">
+            <AlertCircle className="w-14 h-14 text-pink-500 mx-auto mb-6" />
+            <h2 className="text-2xl font-playfair font-bold text-gray-900 mb-4">Henüz paket bulunamadı</h2>
+            <p className="text-gray-600 mb-6">Paket verileri şu anda yüklenemedi veya eklenmemiş. Daha sonra tekrar deneyin ya da bize ulaşın.</p>
+            <Button onClick={() => (window.location.href = '/iletisim')} className="bg-pink-600 hover:bg-pink-700 text-white">
+              İletişime Geç
+            </Button>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
   const filtered = useMemo(() => {
     if (selectedCategory === 'packages') {
       return packages.filter(p => p.categories && p.categories.includes('Paketler')); // Sadece Paketler kategorisindeki paketler
