@@ -12,7 +12,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
     '/iletisim',
     '/galeri',
     '/kategoriler',
-    // Antalya local service hub & child pages
     '/antalya',
     '/antalya/dugun-fotografcisi',
     '/antalya/nisan-cekimi',

@@ -1,6 +1,6 @@
 // Central SEO helpers & structured data builders
 // Adjust SITE_URL to your production domain
-export const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://www.ornekdomain.com';
+export const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://www.ilkalbum.com';
 
 // Base organization / service provider info (edit real data)
 export const ORG = {
