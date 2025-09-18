@@ -84,6 +84,31 @@ export function Footer() {
               <Link href="/kategoriler" className="block text-gray-600 hover:text-pink-600 transition-colors text-sm">
                 Dış Çekim
               </Link>
+              <div className="pt-4">
+                <p className="text-xs font-medium uppercase tracking-wide text-pink-600 mb-2">Antalya Hizmetleri</p>
+                <ul className="space-y-1">
+                  <li>
+                    <Link href="/antalya/dugun-fotografcisi" className="block text-gray-600 hover:text-pink-600 transition-colors text-xs">
+                      Antalya Düğün Fotoğrafçısı
+                    </Link>
+                  </li>
+                  <li>
+                    <Link href="/antalya/nisan-cekimi" className="block text-gray-600 hover:text-pink-600 transition-colors text-xs">
+                      Antalya Nişan Çekimi
+                    </Link>
+                  </li>
+                  <li>
+                    <Link href="/antalya/yenidogan-bebek-cekimi" className="block text-gray-600 hover:text-pink-600 transition-colors text-xs">
+                      Antalya Yenidoğan & Bebek
+                    </Link>
+                  </li>
+                  <li>
+                    <Link href="/antalya/dis-cekim" className="block text-gray-600 hover:text-pink-600 transition-colors text-xs">
+                      Antalya Dış Çekim
+                    </Link>
+                  </li>
+                </ul>
+              </div>
             </nav>
           </div>
 

@@ -202,8 +202,7 @@ export default function IletisimPage() {
                     <div>
                       <h3 className="font-semibold text-gray-900 mb-1">Adres</h3>
                       <p className="text-gray-600">
-                        Bağdat Caddesi No: 123<br />
-                        Kadıköy, İstanbul 34728
+                          Emek Mh. Yeşilırmak Cd, 07060 Kepez/Antalya
                       </p>
                     </div>
                   </div>
@@ -214,7 +213,7 @@ export default function IletisimPage() {
                     </div>
                     <div>
                       <h3 className="font-semibold text-gray-900 mb-1">Telefon</h3>
-                      <p className="text-gray-600">+90 555 123 4567</p>
+                      <p className="text-gray-600">+90 545 784 56 67</p>
                       <p className="text-sm text-gray-500">WhatsApp mevcut</p>
                     </div>
                   </div>

@@ -4,11 +4,26 @@ import { Star } from 'lucide-react';
 import { PricingClient, PricingPackage } from '@/components/PricingClient';
 import { Header } from '@/components/Header';
 import { Footer } from '@/components/Footer';
+import { SITE_URL, buildBreadcrumbLD, buildFaqLD, buildServicesLD, buildWebPageLD } from '@/lib/seo';
 
 export const metadata: Metadata = {
-  title: 'Fiyatlandırma - İlkalbüm',
-  description: 'Düğün, nişan, bebek ve dış çekim fotoğrafçılığı paketlerimiz ve fiyatlarımız. Detaylı paket bilgileri ve ek hizmetler.',
-  keywords: 'düğün fotoğrafçısı fiyat, nişan çekimi ücret, bebek fotoğrafı fiyat, dış çekim paket, wedding photographer price',
+  title: 'Fiyatlandırma | İlkalbüm Fotoğrafçılık',
+  description: 'Düğün, nişan, bebek ve dış çekim fotoğrafçılığı paket fiyatları ve ek hizmetler. Şeffaf fiyatlandırma ile doğru paketi seçin.',
+  keywords: ['düğün fotoğrafçısı fiyat', 'nişan çekimi ücret', 'bebek fotoğrafı fiyat', 'dış çekim paket', 'wedding photographer price'],
+  alternates: { canonical: `${SITE_URL}/fiyatlandirma` },
+  openGraph: {
+    title: 'Fotoğrafçılık Paket Fiyatları | İlkalbüm',
+    description: 'Düğün, nişan ve bebek çekimleri için profesyonel paket fiyatları.',
+    url: `${SITE_URL}/fiyatlandirma`,
+    siteName: 'İlkalbüm',
+    type: 'website',
+    locale: 'tr_TR'
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Fotoğraf Paketleri | İlkalbüm',
+    description: 'Özel günlerinizi ölümsüzleştiren çekim paketleri.'
+  }
 };
 
 
@@ -53,9 +68,38 @@ export default async function FiyatlandirmaPage() {
     console.error('Campaign fetch error:', err);
   }
 
+  // Build structured data pieces
+  const faqLD = buildFaqLD([
+    { q: 'Teslim süresi ne kadar?', a: 'Standart teslim süremiz 3-4 hafta; hızlı teslim opsiyonu ile ön izleme 48 saatte sunulur.' },
+    { q: 'Ödeme nasıl yapılıyor?', a: 'Rezervasyonda %30 kapora, çekim günü %40, teslimatta kalan bakiye alınır.' },
+    { q: 'Şehir dışı çekim var mı?', a: 'Evet, ulaşım ve konaklama masrafları eklenerek şehir dışı hizmet sağlıyoruz.' }
+  ]);
+  const breadcrumbLD = buildBreadcrumbLD([
+    { name: 'Anasayfa', url: SITE_URL },
+    { name: 'Fiyatlandırma', url: `${SITE_URL}/fiyatlandirma` }
+  ]);
+  const servicesLD = buildServicesLD(packages.map(p => ({
+    id: p._id,
+    name: p.name,
+    price: p.price,
+    category: (p.categories && p.categories[0]) || 'Fotoğrafçılık'
+  })));
+  const webPageLD = buildWebPageLD({
+    name: 'Fiyatlandırma',
+    description: 'Düğün, nişan, bebek ve dış çekim fotoğrafçılığı paket fiyatları.',
+    path: '/fiyatlandirma'
+  });
+
   return (
     <>
       <Header />
+      {/* JSON-LD scripts */}
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(webPageLD) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbLD) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqLD) }} />
+      {servicesLD.slice(0, 12).map((obj, i) => (
+        <script key={`svc-${i}`} type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(obj) }} />
+      ))}
 
       <div className="pt-20">
   {/* Hero */}
