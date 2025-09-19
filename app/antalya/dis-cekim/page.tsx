@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 import { Header } from '@/components/Header';
 import { Footer } from '@/components/Footer';
-import { SITE_URL, buildBreadcrumbLD, buildWebPageLD, buildServicesLD } from '@/lib/seo';
+import { SITE_URL, buildBreadcrumbLD, buildWebPageLD, buildServicesLD, buildLocalBusinessLD, buildFaqLD } from '@/lib/seo';
 
 export const metadata: Metadata = {
   title: 'Antalya Dış Çekim Fotoğrafçısı | İlkalbüm',
@@ -25,18 +25,37 @@ export default function AntalyaDisCekimPage() {
     { id: 'dis-cekim-standard', name: 'Antalya Dış Çekim Standard', price: '4500₺', category: 'Dış Çekim' },
     { id: 'dis-cekim-gun-batimi', name: 'Antalya Gün Batımı Premium', price: '6400₺', category: 'Dış Çekim' }
   ]);
+  const localBusiness = buildLocalBusinessLD({
+    name: 'İlkalbüm Fotoğrafçılık',
+    telephone: '+90-545-784-56-67',
+    streetAddress: 'Emek Mh. Yeşilırmak Cd',
+    addressLocality: 'Antalya',
+    addressRegion: 'Antalya',
+    postalCode: '07060',
+    areaServed: ['Antalya', 'Muratpaşa', 'Konyaaltı', 'Kepez'],
+    geo: { latitude: 36.8969, longitude: 30.7133 }
+  });
+  const faqLD = buildFaqLD([
+    { q: 'Antalya dış çekim hangi saatlerde daha iyi?', a: 'Gün doğumu sonrası ilk 45 dk ve gün batımından önceki altın saat en ideal ışığı sunar.' },
+    { q: 'Dış çekimde kaç lokasyon seçebiliriz?', a: 'Standart paket 1-2; premium paket rota planlı 2-3 lokasyon içerir.' },
+    { q: 'Kıyafet/styling desteği veriyor musunuz?', a: 'Evet, renk paleti ve doku uyumuna göre styling tavsiyesi sunuyoruz.' }
+  ]);
 
   return (
     <>
       <Header />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(pageLD) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumb) }} />
+  <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(localBusiness) }} />
+  <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqLD) }} />
       {services.map((s, i) => <script key={i} type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(s) }} />)}
       <div className="pt-20">
         <section className="py-20 bg-gradient-to-b from-white to-amber-50">
           <div className="container max-w-5xl">
             <h1 className="text-4xl md:text-5xl font-playfair font-bold text-gray-900 mb-6">Antalya Dış Çekim Fotoğrafçısı</h1>
             <p className="text-lg text-gray-600 leading-relaxed mb-6">Doğal ışığın en estetik haliyle; gün doğumu, altın saat ve gün batımı dilimlerinde Antalya'nın benzersiz fonlarını kullanıyoruz.</p>
+            {/* semantic synonyms block to catch variants like 'dış çekim fotoğrafçılık' */}
+            <p className="sr-only">Antalya dış çekim fotoğrafçılık hizmeti; çift dış çekimi, save the date ve doğal ışık odaklı sahil dış çekimleri içerir.</p>
             <p className="text-gray-600 leading-relaxed mb-8">Konsept planlama, lokasyon rotası, ışık zamanlaması ve styling tavsiyeleri dahil uçtan uca rehberlik. Gereksiz poz şablonları yerine doğal akışta çekim.</p>
             <div className="grid md:grid-cols-3 gap-8 mb-16">
               <div className="p-6 rounded-2xl bg-white border border-amber-100 shadow-sm">

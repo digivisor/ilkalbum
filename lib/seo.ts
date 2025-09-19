@@ -59,6 +59,50 @@ export function buildOrganizationLD() {
   };
 }
 
+// LocalBusiness builder for location-rich pages (optional geo)
+export interface LocalBusinessInput {
+  name: string;
+  telephone: string;
+  streetAddress?: string;
+  addressLocality?: string;
+  addressRegion?: string;
+  postalCode?: string;
+  addressCountry?: string; // default TR
+  url?: string; // default SITE_URL
+  areaServed?: string[]; // default ['Antalya']
+  sameAs?: string[];
+  geo?: { latitude: number; longitude: number };
+}
+
+export function buildLocalBusinessLD(input: LocalBusinessInput) {
+  const addr: any = {
+    '@type': 'PostalAddress',
+    streetAddress: input.streetAddress,
+    addressLocality: input.addressLocality || ORG.locality,
+    addressRegion: input.addressRegion || ORG.locality,
+    postalCode: input.postalCode,
+    addressCountry: input.addressCountry || ORG.country
+  };
+  const base: any = {
+    '@context': 'https://schema.org',
+    '@type': 'LocalBusiness',
+    name: input.name,
+    url: input.url || SITE_URL,
+    telephone: input.telephone,
+    address: addr,
+    areaServed: input.areaServed || ['Antalya'],
+    sameAs: input.sameAs || ORG.social
+  };
+  if (input.geo) {
+    base.geo = {
+      '@type': 'GeoCoordinates',
+      latitude: input.geo.latitude,
+      longitude: input.geo.longitude
+    };
+  }
+  return base;
+}
+
 export function buildBreadcrumbLD(items: { name: string; url: string }[]) {
   return {
     '@context': 'https://schema.org',

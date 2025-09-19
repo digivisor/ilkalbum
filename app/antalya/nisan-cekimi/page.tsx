@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 import { Header } from '@/components/Header';
 import { Footer } from '@/components/Footer';
-import { SITE_URL, buildBreadcrumbLD, buildWebPageLD, buildServicesLD } from '@/lib/seo';
+import { SITE_URL, buildBreadcrumbLD, buildWebPageLD, buildServicesLD, buildLocalBusinessLD, buildFaqLD } from '@/lib/seo';
 
 export const metadata: Metadata = {
   title: 'Antalya Nişan Çekimi | İlkalbüm',
@@ -25,12 +25,28 @@ export default function AntalyaNisanPage() {
     { id: 'nisan-standart', name: 'Antalya Nişan Standart Paket', price: '6500₺', category: 'Nişan Çekimi' },
     { id: 'nisan-plus', name: 'Antalya Nişan Plus Paket', price: '8200₺', category: 'Nişan Çekimi' }
   ]);
+  const localBusiness = buildLocalBusinessLD({
+    name: 'İlkalbüm Fotoğrafçılık',
+    telephone: '+90-545-784-56-67',
+    streetAddress: 'Emek Mh. Yeşilırmak Cd',
+    addressLocality: 'Antalya',
+    addressRegion: 'Antalya',
+    postalCode: '07060',
+    areaServed: ['Antalya', 'Muratpaşa', 'Konyaaltı', 'Kepez'],
+    geo: { latitude: 36.8969, longitude: 30.7133 }
+  });
+  const faqLD = buildFaqLD([
+    { q: 'Antalya nişan fotoğrafçısı ücretleri nedir?', a: 'Paket kapsamına göre değişir; güncel detaylar fiyatlandırma sayfasındadır.' },
+    { q: 'Nişan çekimi için en iyi saatler?', a: 'Gün batımına yakın zamanlar en yumuşak ve romantik ışığı sunar.' }
+  ]);
 
   return (
     <>
       <Header />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(pageLD) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumb) }} />
+  <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(localBusiness) }} />
+  <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqLD) }} />
       {services.map((s, i) => <script key={i} type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(s) }} />)}
       <div className="pt-20">
         <section className="py-20 bg-gradient-to-b from-white to-pink-50">
@@ -38,6 +54,7 @@ export default function AntalyaNisanPage() {
             <h1 className="text-4xl md:text-5xl font-playfair font-bold text-gray-900 mb-6">Antalya Nişan Çekimi</h1>
             <p className="text-lg text-gray-600 leading-relaxed mb-6">Evlilik yolculuğunuzun ilk özel duraklarından nişan günü için doğal, romantik ve duygusal kareler oluşturuyoruz. Antalya'nın eşsiz ışığı ve atmosferi ile sade & zarif çekim konseptleri.</p>
             <p className="text-gray-600 leading-relaxed mb-8">Çift portreleri, yüzük takma anı, aile grupları, konsept detaylar ve mini dış çekim kombinasyonu. Golden hour planlaması ve mekan seçim rehberliğiyle süreci stressiz hale getiriyoruz.</p>
+            <p className="sr-only">Antalya nişan fotoğrafçılık ve söz çekimi; save the date ve dış çekim varyasyonlarını da kapsar.</p>
             <div className="grid md:grid-cols-2 gap-8 mb-12">
               <div className="p-6 rounded-2xl bg-white border border-pink-100 shadow-sm">
                 <h2 className="text-xl font-semibold text-gray-900 mb-4">Çekim İçeriği</h2>

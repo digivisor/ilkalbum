@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 import { Header } from '@/components/Header';
 import { Footer } from '@/components/Footer';
-import { SITE_URL, buildBreadcrumbLD, buildWebPageLD, buildServicesLD } from '@/lib/seo';
+import { SITE_URL, buildBreadcrumbLD, buildWebPageLD, buildServicesLD, buildLocalBusinessLD, buildFaqLD } from '@/lib/seo';
 
 export const metadata: Metadata = {
   title: 'Antalya Düğün Fotoğrafçısı | İlkalbüm',
@@ -26,12 +26,28 @@ export default function AntalyaDugunPage() {
     { id: 'dugun-tam-gun', name: 'Antalya Düğün Tam Gün Paket', price: '14500₺', category: 'Düğün Fotoğrafçılığı' },
     { id: 'dugun-yarim-gun', name: 'Antalya Düğün Yarım Gün Paket', price: '9500₺', category: 'Düğün Fotoğrafçılığı' }
   ]);
+  const localBusiness = buildLocalBusinessLD({
+    name: 'İlkalbüm Fotoğrafçılık',
+    telephone: '+90-545-784-56-67',
+    streetAddress: 'Emek Mh. Yeşilırmak Cd',
+    addressLocality: 'Antalya',
+    addressRegion: 'Antalya',
+    postalCode: '07060',
+    areaServed: ['Antalya', 'Muratpaşa', 'Konyaaltı', 'Kepez'],
+    geo: { latitude: 36.8969, longitude: 30.7133 }
+  });
+  const faqLD = buildFaqLD([
+    { q: 'Antalya düğün fotoğrafçısı fiyatları nasıl?', a: 'Kapsama (saat, lokasyon, opsiyonlar) göre değişir; fiyatlandırma sayfasında güncel paket detaylarını paylaşıyoruz.' },
+    { q: 'Tam gün mü yarım gün mü seçmeliyiz?', a: 'Hazırlık + tören + after party içeren akışlarda tam gün daha uygundur; daha kısa programlarda yarım gün yeterli olur.' }
+  ]);
 
   return (
     <>
       <Header />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(pageLD) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumb) }} />
+  <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(localBusiness) }} />
+  <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqLD) }} />
       {services.map((s, i) => <script key={i} type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(s) }} />)}
       <div className="pt-20">
         <section className="py-20 bg-gradient-to-b from-white to-pink-50">
@@ -39,6 +55,7 @@ export default function AntalyaDugunPage() {
             <h1 className="text-4xl md:text-5xl font-playfair font-bold text-gray-900 mb-6">Antalya Düğün Fotoğrafçısı</h1>
             <p className="text-lg text-gray-600 leading-relaxed mb-6">Kaleiçi'nin tarihi atmosferinden Lara sahillerine, Side'nin antik dokusundan dağ ve kır konseptlerine kadar Antalya'nın ruhunu yansıtan hikaye odaklı düğün fotoğrafçılığı yaklaşıyoruz.</p>
             <p className="text-gray-600 leading-relaxed mb-8">Hazırlık (gelin-damat), first look, nikah & tören, aile portreleri, çift çekimi ve after party anlarını kaydederken ışık planlama, lokasyon zamanlama ve duygusal anlatımı öne çıkarıyoruz. Golden hour ve blue hour planları ile günün en sinematik ışığını kullanıyoruz.</p>
+            <p className="sr-only">Antalya düğün fotoğrafçılık ve düğün fotoğrafçısı hizmetleri; save the date, dış çekim ve hikaye anlatımı odaklı yaklaşım içerir.</p>
             <div className="grid md:grid-cols-2 gap-8 mb-12">
               <div className="p-6 rounded-2xl bg-white border border-pink-100 shadow-sm">
                 <h2 className="text-xl font-semibold text-gray-900 mb-4">Öne Çıkan Artılar</h2>

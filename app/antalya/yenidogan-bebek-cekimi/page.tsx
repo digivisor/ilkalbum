@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 import { Header } from '@/components/Header';
 import { Footer } from '@/components/Footer';
-import { SITE_URL, buildBreadcrumbLD, buildWebPageLD, buildServicesLD } from '@/lib/seo';
+import { SITE_URL, buildBreadcrumbLD, buildWebPageLD, buildServicesLD, buildLocalBusinessLD, buildFaqLD } from '@/lib/seo';
 
 export const metadata: Metadata = {
   title: 'Antalya Yenidoğan & Bebek Çekimi | İlkalbüm',
@@ -25,12 +25,28 @@ export default function AntalyaYenidoğanBebekPage() {
     { id: 'yenidogan-paket', name: 'Antalya Yenidoğan Çekimi', price: '5500₺', category: 'Yenidoğan Çekimi' },
     { id: 'bebek-3-6-9', name: 'Antalya Bebek 3-6-9 Ay Serisi', price: '7800₺', category: 'Bebek Fotoğrafları' }
   ]);
+  const localBusiness = buildLocalBusinessLD({
+    name: 'İlkalbüm Fotoğrafçılık',
+    telephone: '+90-545-784-56-67',
+    streetAddress: 'Emek Mh. Yeşilırmak Cd',
+    addressLocality: 'Antalya',
+    addressRegion: 'Antalya',
+    postalCode: '07060',
+    areaServed: ['Antalya', 'Muratpaşa', 'Konyaaltı', 'Kepez'],
+    geo: { latitude: 36.8969, longitude: 30.7133 }
+  });
+  const faqLD = buildFaqLD([
+    { q: 'Yenidoğan çekimi için en uygun günler?', a: 'Genellikle 5–12. günler arası en sakin dönemdir; bebek konforu önceliğimizdir.' },
+    { q: 'Evde çekim mümkün mü?', a: 'Antalya içinde ışık koşullarına bağlı olarak ev çekimi yapılabilir.' }
+  ]);
 
   return (
     <>
       <Header />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(pageLD) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumb) }} />
+  <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(localBusiness) }} />
+  <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqLD) }} />
       {services.map((s, i) => <script key={i} type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(s) }} />)}
       <div className="pt-20">
         <section className="py-20 bg-gradient-to-b from-white to-pink-50">
@@ -38,6 +54,7 @@ export default function AntalyaYenidoğanBebekPage() {
             <h1 className="text-4xl md:text-5xl font-playfair font-bold text-gray-900 mb-6">Antalya Yenidoğan & Bebek Çekimi</h1>
             <p className="text-lg text-gray-600 leading-relaxed mb-6">İlk günlerin kırılgan anlarını güvenli, steril ve doğal bir yaklaşımla belgeliyoruz. Bebek sağlığı ve konforu her zaman önceliğimiz.</p>
             <p className="text-gray-600 leading-relaxed mb-8">Yenidoğan pozlandırma, doğal ışık kullanımı, aksesuar hijyeni, aile / kardeş dahil kompozisyon planlama ve büyüme serisi (3-6-9-12 ay) gibi ihtiyaçlara uygun esnek hizmet.</p>
+            <p className="sr-only">Antalya yenidoğan fotoğrafçılık ve bebek fotoğrafçısı hizmetleri; steril ve doğal konseptli çekimleri kapsar.</p>
             <div className="grid md:grid-cols-2 gap-8 mb-12">
               <div className="p-6 rounded-2xl bg-white border border-pink-100 shadow-sm">
                 <h2 className="text-xl font-semibold text-gray-900 mb-4">Önemli Unsurlar</h2>
