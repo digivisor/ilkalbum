@@ -1,6 +1,6 @@
 // lib/api.config.ts - API configuration
 export const API_CONFIG = {
-  baseURL: process.env.NEXT_PUBLIC_API_URL || 'http://api.ilkalbum.com',
+  baseURL: process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000',
   timeout: 10000,
   retries: 3,
   endpoints: {
@@ -10,13 +10,13 @@ export const API_CONFIG = {
     gallery: '/api/gallery',
     contact: '/api/contact',
     
-    // Admin endpoints  
+    // Admin endpoints - backend'de mevcut olan endpoint'leri kullan
     admin: {
       login: '/api/admin/login',
       verify: '/api/admin/verify',
-      gallery: '/api/admin/gallery',
-      pricing: '/api/admin/pricing',
-      campaigns: '/api/admin/campaigns'
+      gallery: '/api/gallery', // Admin için de aynı endpoint
+      pricing: '/api/pricing', // Admin için de aynı endpoint
+      campaigns: '/api/campaigns' // Admin için de aynı endpoint
     }
   },
   headers: {

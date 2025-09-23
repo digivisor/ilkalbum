@@ -3,6 +3,16 @@ import { apiClient } from '@/lib/api.client';
 import { API_CONFIG } from '@/lib/api.config';
 import { GalleryItem } from '@/types/api';
 
+// Helper function to ensure auth token is set
+const ensureAuthToken = () => {
+  if (typeof window !== 'undefined') {
+    const token = localStorage.getItem('adminToken');
+    if (token) {
+      apiClient.setAuthToken(token);
+    }
+  }
+};
+
 export class GalleryService {
   // Get all gallery items
   static async getGalleryItems() {
@@ -16,7 +26,8 @@ export class GalleryService {
 
   // Admin: Create new gallery item
   static async createGalleryItem(itemData: Omit<GalleryItem, '_id'>) {
-    const result = await apiClient.post<GalleryItem>(API_CONFIG.endpoints.admin.gallery, itemData);
+    ensureAuthToken();
+    const result = await apiClient.post<GalleryItem>(API_CONFIG.endpoints.gallery, itemData);
     
     // Clear cache after successful operation
     await this.clearGalleryCache();
@@ -26,7 +37,8 @@ export class GalleryService {
 
   // Admin: Update gallery item
   static async updateGalleryItem(id: string, itemData: Partial<GalleryItem>) {
-    const result = await apiClient.put<GalleryItem>(`${API_CONFIG.endpoints.admin.gallery}/${id}`, itemData);
+    ensureAuthToken();
+    const result = await apiClient.put<GalleryItem>(`${API_CONFIG.endpoints.gallery}/${id}`, itemData);
     
     // Clear cache after successful operation
     await this.clearGalleryCache();
@@ -36,7 +48,8 @@ export class GalleryService {
 
   // Admin: Delete gallery item
   static async deleteGalleryItem(id: string) {
-    const result = await apiClient.delete(`${API_CONFIG.endpoints.admin.gallery}/${id}`);
+    ensureAuthToken();
+    const result = await apiClient.delete(`${API_CONFIG.endpoints.gallery}/${id}`);
     
     // Clear cache after successful operation
     await this.clearGalleryCache();
