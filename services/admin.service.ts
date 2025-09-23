@@ -25,9 +25,13 @@ export class AdminService {
 
   // Verify admin token
   static async verifyToken(tokenData: AdminVerifyData) {
-    const response = await apiClient.post<{ valid: boolean; user: any }>(
-      API_CONFIG.endpoints.admin.verify,
-      tokenData
+    // Set the token first
+    if (tokenData.token) {
+      apiClient.setAuthToken(tokenData.token);
+    }
+    
+    const response = await apiClient.get<{ valid: boolean; user: any }>(
+      API_CONFIG.endpoints.admin.verify
     );
     
     return response;

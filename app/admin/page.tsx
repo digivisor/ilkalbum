@@ -300,6 +300,8 @@ function GalleryManagement() {
   const [showAddForm, setShowAddForm] = useState(false);
   const [editingItem, setEditingItem] = useState<any>(null);
   const [uploading, setUploading] = useState(false);
+  const [error, setError] = useState<string>('');
+  const [success, setSuccess] = useState<string>('');
   const [formData, setFormData] = useState({
     title: '',
     description: '',
@@ -411,9 +413,19 @@ const convertGoogleDriveUrl = (url: string) => {
 
   const fetchGalleryItems = async () => {
     try {
+      setError('');
       const response = await GalleryService.getGalleryItems();
-      setGalleryItems(response.data || []);
-    } catch (error) {
+      
+      if (response.success && response.data) {
+        setGalleryItems(response.data);
+        console.log('Gallery items loaded:', response.data.length);
+      } else {
+        setError('Galeri öğeleri yüklenemedi: ' + (response.error || 'Bilinmeyen hata'));
+        console.error('Gallery fetch failed:', response.error);
+      }
+    } catch (error: any) {
+      const errorMessage = error.message || 'Bağlantı hatası';
+      setError('Galeri yüklenirken hata: ' + errorMessage);
       console.error('Gallery fetch error:', error);
     }
   };
@@ -422,6 +434,9 @@ const convertGoogleDriveUrl = (url: string) => {
     e.preventDefault();
     
     try {
+      setError('');
+      setSuccess('');
+      
       // Format URLs before sending to database
       const formattedData = {
         ...formData,
@@ -430,9 +445,21 @@ const convertGoogleDriveUrl = (url: string) => {
       };
       
       if (editingItem) {
-        await GalleryService.updateGalleryItem(editingItem._id, formattedData as any);
+        const response = await GalleryService.updateGalleryItem(editingItem._id, formattedData as any);
+        if (response.success) {
+          setSuccess('Galeri öğesi başarıyla güncellendi!');
+        } else {
+          setError('Güncelleme hatası: ' + (response.error || 'Bilinmeyen hata'));
+          return;
+        }
       } else {
-        await GalleryService.createGalleryItem(formattedData as any);
+        const response = await GalleryService.createGalleryItem(formattedData as any);
+        if (response.success) {
+          setSuccess('Galeri öğesi başarıyla eklendi!');
+        } else {
+          setError('Ekleme hatası: ' + (response.error || 'Bilinmeyen hata'));
+          return;
+        }
       }
 
       fetchGalleryItems();
@@ -446,7 +473,9 @@ const convertGoogleDriveUrl = (url: string) => {
         url: '',
         thumbnailUrl: ''
       });
-    } catch (error) {
+    } catch (error: any) {
+      const errorMessage = error.message || 'Bağlantı hatası';
+      setError('İşlem hatası: ' + errorMessage);
       console.error('Submit error:', error);
     }
   };
@@ -468,9 +497,18 @@ const convertGoogleDriveUrl = (url: string) => {
     if (!confirm('Bu öğeyi silmek istediğinizden emin misiniz?')) return;
 
     try {
-      await GalleryService.deleteGalleryItem(id);
-      fetchGalleryItems();
-    } catch (error) {
+      setError('');
+      const response = await GalleryService.deleteGalleryItem(id);
+      
+      if (response.success) {
+        setSuccess('Galeri öğesi başarıyla silindi!');
+        fetchGalleryItems();
+      } else {
+        setError('Silme hatası: ' + (response.error || 'Bilinmeyen hata'));
+      }
+    } catch (error: any) {
+      const errorMessage = error.message || 'Bağlantı hatası';
+      setError('Silme hatası: ' + errorMessage);
       console.error('Delete error:', error);
     }
   };
@@ -487,6 +525,36 @@ const convertGoogleDriveUrl = (url: string) => {
           Yeni Ekle
         </Button>
       </div>
+
+      {/* Error Message */}
+      {error && (
+        <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded relative">
+          <strong className="font-bold">Hata: </strong>
+          <span className="block sm:inline">{error}</span>
+          <button
+            onClick={() => setError('')}
+            className="absolute top-0 bottom-0 right-0 px-4 py-3"
+          >
+            <span className="sr-only">Kapat</span>
+            ×
+          </button>
+        </div>
+      )}
+
+      {/* Success Message */}
+      {success && (
+        <div className="bg-green-50 border border-green-200 text-green-700 px-4 py-3 rounded relative">
+          <strong className="font-bold">Başarılı: </strong>
+          <span className="block sm:inline">{success}</span>
+          <button
+            onClick={() => setSuccess('')}
+            className="absolute top-0 bottom-0 right-0 px-4 py-3"
+          >
+            <span className="sr-only">Kapat</span>
+            ×
+          </button>
+        </div>
+      )}
 
       {showAddForm && (
         <Card>

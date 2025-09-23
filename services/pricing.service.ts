@@ -3,6 +3,16 @@ import { apiClient } from '@/lib/api.client';
 import { API_CONFIG } from '@/lib/api.config';
 import { PricingPackage, Campaign } from '@/types/api';
 
+// Helper function to ensure auth token is set
+const ensureAuthToken = () => {
+  if (typeof window !== 'undefined') {
+    const token = localStorage.getItem('adminToken');
+    if (token) {
+      apiClient.setAuthToken(token);
+    }
+  }
+};
+
 export class PricingService {
   // Get all pricing packages
   static async getPricingPackages() {
@@ -16,7 +26,8 @@ export class PricingService {
 
   // Admin: Create new pricing package
   static async createPricingPackage(packageData: Omit<PricingPackage, '_id'>) {
-    const result = await apiClient.post<PricingPackage>(API_CONFIG.endpoints.admin.pricing, packageData);
+    ensureAuthToken();
+    const result = await apiClient.post<PricingPackage>(API_CONFIG.endpoints.pricing, packageData);
     
     // Clear cache after successful operation
     await this.clearPricingCache();
@@ -26,7 +37,8 @@ export class PricingService {
 
   // Admin: Update pricing package
   static async updatePricingPackage(id: string, packageData: Partial<PricingPackage>) {
-    const result = await apiClient.put<PricingPackage>(`${API_CONFIG.endpoints.admin.pricing}/${id}`, packageData);
+    ensureAuthToken();
+    const result = await apiClient.put<PricingPackage>(`${API_CONFIG.endpoints.pricing}/${id}`, packageData);
     
     // Clear cache after successful operation
     await this.clearPricingCache();
@@ -36,7 +48,8 @@ export class PricingService {
 
   // Admin: Delete pricing package
   static async deletePricingPackage(id: string) {
-    const result = await apiClient.delete(`${API_CONFIG.endpoints.admin.pricing}/${id}`);
+    ensureAuthToken();
+    const result = await apiClient.delete(`${API_CONFIG.endpoints.pricing}/${id}`);
     
     // Clear cache after successful operation
     await this.clearPricingCache();
