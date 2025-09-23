@@ -23,9 +23,10 @@ export function Header() {
         <div className="flex items-center justify-between h-16 lg:h-20">
           {/* Logo */}
           <Link href="/" className="flex items-center space-x-2">
-            <span className="text-2xl lg:text-3xl font-playfair font-bold text-pink-600">
+            {/* <span className="text-2xl lg:text-3xl font-playfair font-bold text-pink-600">
               ilkalbüm
-            </span>
+            </span> */}
+            <img src="/ilkalbum-logo.png" alt="ilkalbüm" className="h-8 lg:h-10" />
           </Link>
 
           {/* Desktop Navigation */}
