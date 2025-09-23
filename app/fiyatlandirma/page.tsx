@@ -43,9 +43,7 @@ export default async function FiyatlandirmaPage() {
 
   // Pricing fetch (güvenli)
   try {
-    const res =  await fetch('http://api.ilkalbum.com/api/pricing', {
-      next: { revalidate: 60 },
-    });
+    const res = await fetch('http://api.ilkalbum.com/api/pricing', { cache: 'no-store' });
     if (res.ok) {
       packages = await res.json();
     } else {
