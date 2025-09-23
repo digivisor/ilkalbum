@@ -6,21 +6,26 @@ import { Button } from '@/components/ui/button';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion'; // still imported if needed elsewhere
 import { ReservationModal } from '@/components/ReservationModal';
 
-export interface PricingPackage {
+import type { PricingPackage as ApiPricingPackage } from '@/types/api';
+
+// Unified interface that combines both types
+type UnifiedPricingPackage = {
   _id: string;
-  name: string;
-  price: string;
-  originalPrice: string;
-  categories: string[];
-  customCategoryName?: string; // Paketler kategorisi için özel isim
-  duration: string;
-  isPopular: boolean;
+  name?: string;
+  title: string;
+  price: number | string;
+  originalPrice?: number | string;
+  categories?: string[];
+  customCategoryName?: string;
+  duration?: string;
+  isPopular?: boolean;
+  popular?: boolean;
   features: string[];
-  notIncluded: string[];
-}
+  notIncluded?: string[];
+};
 
 interface Props {
-  packages: PricingPackage[];
+  packages: (UnifiedPricingPackage | ApiPricingPackage)[];
   campaign: {
     title: string;
     description: string;
@@ -39,10 +44,24 @@ const categories = [
 ];
 
 // Ortak kıyas alanı üretmek için tüm paket feature'larını normalize et
-function buildComparisonRows(pkgs: PricingPackage[]): string[] {
+function buildComparisonRows(pkgs: (UnifiedPricingPackage | ApiPricingPackage)[]): string[] {
   const set = new Set<string>();
-  pkgs.forEach(p => p.features.forEach(f => set.add(f)));
+  pkgs.forEach(p => p.features.forEach((f: string) => set.add(f)));
   return Array.from(set);
+}
+
+// Helper functions to safely access package properties
+function getPackageName(pkg: UnifiedPricingPackage | ApiPricingPackage): string {
+  return (pkg as any).name || (pkg as any).title || 'Paket';
+}
+
+function getPackagePrice(pkg: UnifiedPricingPackage | ApiPricingPackage): string {
+  const price = pkg.price;
+  return typeof price === 'string' ? price : `${price}₺`;
+}
+
+function isPackagePopular(pkg: UnifiedPricingPackage | ApiPricingPackage): boolean {
+  return !!(pkg as any).isPopular || !!(pkg as any).popular;
 }
 
 const extraServices = [
@@ -192,7 +211,7 @@ export function PricingClient({ packages, campaign }: Props) {
                   <div className="text-center mb-6">
                     <h3 className="text-xl font-bold text-gray-900 mb-2">{pkg.name}</h3>
                     <div className="flex flex-wrap justify-center gap-1 mb-2">
-                      {pkg.categories && pkg.categories.map((category, index) => (
+                      {pkg.categories && pkg.categories.map((category: string, index: number) => (
                         <span key={index} className="px-2 py-1 bg-pink-100 text-pink-700 text-xs rounded-full">
                           {category === 'Paketler' && pkg.customCategoryName 
                             ? pkg.customCategoryName 
@@ -212,7 +231,7 @@ export function PricingClient({ packages, campaign }: Props) {
                     <p className="text-xs text-gray-400">KDV dahil</p>
                   </div>
                   <div className="space-y-2 mb-6">
-                    {pkg.features.map((f, i) => (
+                    {pkg.features.map((f: string, i: number) => (
                       <div key={i} className="flex items-start gap-2">
                         <Check className="w-4 h-4 text-green-500 mt-0.5 flex-shrink-0" />
                         <span className="text-xs text-gray-700 leading-snug">{f}</span>
@@ -222,17 +241,17 @@ export function PricingClient({ packages, campaign }: Props) {
                   <Button 
                     className={`w-full ${pkg.isPopular ? 'bg-gradient-to-r from-pink-600 to-pink-700 hover:from-pink-700 hover:to-pink-800 text-white' : 'bg-gray-100 hover:bg-gray-200 text-gray-900'}`}
                     onClick={() => {
-                      setSelectedPackage(pkg.name);
+                      setSelectedPackage((pkg as any).name || (pkg as any).title || 'Paket');
                       setIsReservationModalOpen(true);
                     }}
                   >
                     Rezervasyon Yap
                   </Button>
-                  {pkg.notIncluded && pkg.notIncluded.length > 0 && (
+                  {(pkg as any).notIncluded && (pkg as any).notIncluded.length > 0 && (
                     <div className="mt-4 pt-4 border-t border-gray-100">
                       <p className="text-xs text-gray-400 mb-2">Pakete dahil değil:</p>
                       <ul className="space-y-1">
-                        {pkg.notIncluded.map((n, i) => (
+                        {(pkg as any).notIncluded.map((n: string, i: number) => (
                           <li key={i} className="text-xs text-gray-400">• {n}</li>
                         ))}
                       </ul>
@@ -258,7 +277,7 @@ export function PricingClient({ packages, campaign }: Props) {
                 <h3 className="text-xl font-bold text-gray-900 mb-1">{pkg.name}</h3>
                 <p className="text-xs text-gray-500 mb-1">
                   {pkg.categories && pkg.categories.length > 0 
-                    ? pkg.categories.map(category => 
+                    ? pkg.categories.map((category: string) =>
                         category === 'Paketler' && pkg.customCategoryName 
                           ? pkg.customCategoryName 
                           : category
@@ -275,7 +294,7 @@ export function PricingClient({ packages, campaign }: Props) {
                 <p className="text-[11px] text-gray-400">KDV dahil</p>
               </div>
               <div className="space-y-2 mb-6">
-                {pkg.features.slice(0, 8).map((f, i) => (
+                {pkg.features.slice(0, 8).map((f: string, i: number) => (
                   <div key={i} className="flex items-start gap-2">
                     <Check className="w-4 h-4 text-green-500 mt-0.5" />
                     <span className="text-xs text-gray-700 leading-snug">{f}</span>
@@ -285,17 +304,17 @@ export function PricingClient({ packages, campaign }: Props) {
               <Button 
                 className={`w-full ${pkg.isPopular ? 'bg-pink-600 hover:bg-pink-700 text-white' : 'bg-gray-100 hover:bg-gray-200 text-gray-900'}`}
                 onClick={() => {
-                  setSelectedPackage(pkg.name);
+                  setSelectedPackage((pkg as any).name || (pkg as any).title || 'Paket');
                   setIsReservationModalOpen(true);
                 }}
               >
                 Rezervasyon Yap
               </Button>
-              {pkg.notIncluded.length > 0 && (
+              {(pkg as any).notIncluded && (pkg as any).notIncluded.length > 0 && (
                 <div className="mt-5 pt-4 border-t border-gray-100">
                   <p className="text-[11px] text-gray-400 mb-2">Pakete dahil değil:</p>
                   <ul className="space-y-1">
-                    {pkg.notIncluded.map((n, i) => (
+                    {(pkg as any).notIncluded.map((n: string, i: number) => (
                       <li key={i} className="text-[11px] text-gray-400">• {n}</li>
                     ))}
                   </ul>

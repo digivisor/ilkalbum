@@ -5,6 +5,7 @@ import { CampaignBanner } from '../components/CampaignBanner';
 import { AIPhotoComparison } from '../components/AIPhotoComparison';
 import { Footer } from '@/components/Footer';
 import { Header } from '@/components/Header';
+import { ServerPricingService } from '@/services';
 
 export const metadata: Metadata = {
   title: 'İlkalbüm - Düğün Fotoğrafçılığı | Anasayfa',
@@ -13,30 +14,39 @@ export const metadata: Metadata = {
 };
 
 export default async function Home() {
-  // Kampanya verilerini çek
-  let campaign = null;
+  // Get active campaigns for banner with immediate updates
+  let campaign;
   try {
-    const campaignRes =  await fetch('http://api.ilkalbum.com/api/campaigns', {
-      next: { revalidate: 60 },
-    });
+    const campaigns = await ServerPricingService.getActiveCampaignsSSR(0);
+    const activeCampaign = campaigns.find(c => c.isActive);
     
-    if (campaignRes.ok) {
-      const campaigns = await campaignRes.json();
-      // Aktif ve anasayfa tipindeki kampanyayı bul
-      campaign = campaigns.find((c: any) => c.isActive && c.type === 'homepage') || null;
+    // Transform campaign to match CampaignBanner interface
+    if (activeCampaign) {
+      campaign = {
+        ...activeCampaign,
+        packages: activeCampaign.packages?.map(pkg => ({
+          name: pkg.name,
+          oldPrice: 'Özel Fiyat', // Default since backend structure may differ
+          newPrice: 'İndirimli',
+          description: pkg.name
+        })) || []
+      };
     }
   } catch (error) {
-    console.error('Campaign fetch error:', error);
+    console.error('Failed to fetch campaigns:', error);
+    campaign = null;
   }
 
   return (
-    <>
+    <main className="min-h-screen">
       <Header />
       <HeroSlider />
       <CategoryCards />
-      <CampaignBanner campaign={campaign} />
+          {campaign && (
+        <CampaignBanner campaign={campaign} />
+      )}
       {/* <AIPhotoComparison /> */}
       <Footer />
-    </>
+    </main>
   );
 }

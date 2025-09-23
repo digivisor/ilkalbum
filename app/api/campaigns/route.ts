@@ -1,20 +1,10 @@
 import { NextRequest, NextResponse } from 'next/server';
+import { ServerPricingService } from '@/services';
 
 export async function GET() {
   try {
-    // Backend server'dan kampanyaları çek
-    const response = await fetch('http://localhost:3001/api/campaigns', {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    });
-
-    if (!response.ok) {
-      throw new Error('Backend server unavailable');
-    }
-
-    const campaigns = await response.json();
+    // Use service layer instead of direct fetch
+    const campaigns = await ServerPricingService.getActiveCampaignsSSR();
     return NextResponse.json(campaigns);
   } catch (error) {
     console.error('API Error:', error);

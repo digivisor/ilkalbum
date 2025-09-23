@@ -12,6 +12,7 @@ import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover
 import { Calendar as CalendarComponent } from '@/components/ui/calendar';
 import { format } from 'date-fns';
 import { tr } from 'date-fns/locale';
+import { ContactService, ServerPricingService } from '@/services';
 
 interface ReservationModalProps {
   isOpen: boolean;
@@ -61,44 +62,32 @@ Mesaj: ${formData.message || 'Mesaj belirtilmedi'}
         `.trim()
       };
 
-      const response = await fetch('http://localhost:5000/api/contact', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(submitData)
-      });
+      await ContactService.submitContactForm(submitData);
 
-      if (response.ok) {
-        setSubmitSuccess(true);
-        // 3 saniye sonra modalı kapat
-        setTimeout(() => {
-          setSubmitSuccess(false);
-          onClose();
-          // Form'u temizle
-          setFormData({
-            name: '',
+      setSubmitSuccess(true);
+      // 3 saniye sonra modalı kapat
+      setTimeout(() => {
+        setSubmitSuccess(false);
+        onClose();
+        // Form'u temizle
+        setFormData({
+          name: '',
             email: '',
             phone: '',
             time: '',
             selectedPackage: selectedPackage || '',
             category: '',
-            message: ''
-          });
-          setSelectedDate(undefined);
-        }, 3000);
-      } else {
-        alert('Bir hata oluştu. Lütfen tekrar deneyin.');
-      }
+          message: ''
+        });
+        setSelectedDate(undefined);
+      }, 3000);
     } catch (error) {
       console.error('Rezervasyon gönderme hatası:', error);
       alert('Bir hata oluştu. Lütfen tekrar deneyin.');
     } finally {
       setIsSubmitting(false);
     }
-  };
-
-  // Kampanya paketlerini çek
+  };  // Kampanya paketlerini çek
   useEffect(() => {
     if (pageType === 'campaign' && isOpen) {
       fetchCampaignPackages();
@@ -117,24 +106,18 @@ Mesaj: ${formData.message || 'Mesaj belirtilmedi'}
 
   const fetchCampaignPackages = async () => {
     try {
-      const response = await fetch('http://localhost:5000/api/campaigns');
-      if (response.ok) {
-        const campaigns = await response.json();
-        console.log('Alınan kampanyalar:', campaigns); // Debug için
-        const activeCampaign = campaigns.find((c: any) => c.isActive && c.type === 'homepage');
-        console.log('Aktif kampanya:', activeCampaign); // Debug için
-        
-        if (activeCampaign && activeCampaign.packages && activeCampaign.packages.length > 0) {
-          const packageNames = activeCampaign.packages.map((pkg: any) => pkg.name).filter((name: string) => name.trim() !== '');
-          console.log('Paket isimleri:', packageNames); // Debug için
-          setCampaignPackages(packageNames);
-        } else {
-          console.log('Aktif kampanya bulunamadı, varsayılan paketler kullanılıyor');
-          // Varsayılan paketler
-          setCampaignPackages(['Düğün Paketi', 'Nişan Paketi', 'Bebek Paketi', 'Premium Paket', 'Nişan + Düğün Kombo']);
-        }
+      const campaigns = await ServerPricingService.getActiveCampaignsSSR();
+      console.log('Alınan kampanyalar:', campaigns); // Debug için
+      const activeCampaign = campaigns.find((c: any) => c.isActive && c.type === 'homepage');
+      console.log('Aktif kampanya:', activeCampaign); // Debug için
+      
+      if (activeCampaign && activeCampaign.packages && activeCampaign.packages.length > 0) {
+        const packageNames = activeCampaign.packages.map((pkg: any) => pkg.name).filter((name: string) => name.trim() !== '');
+        console.log('Paket isimleri:', packageNames); // Debug için
+        setCampaignPackages(packageNames);
       } else {
-        console.log('API yanıt hatası:', response.status);
+        console.log('Aktif kampanya bulunamadı, varsayılan paketler kullanılıyor');
+        // Varsayılan paketler
         setCampaignPackages(['Düğün Paketi', 'Nişan Paketi', 'Bebek Paketi', 'Premium Paket', 'Nişan + Düğün Kombo']);
       }
     } catch (error) {

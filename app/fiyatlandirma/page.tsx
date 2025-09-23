@@ -1,10 +1,11 @@
 // app/(client)/pricing/page.tsx
 import type { Metadata } from 'next';
 import { Star } from 'lucide-react';
-import { PricingClient, PricingPackage } from '@/components/PricingClient';
+import { PricingClient } from '@/components/PricingClient';
 import { Header } from '@/components/Header';
 import { Footer } from '@/components/Footer';
 import { SITE_URL, buildBreadcrumbLD, buildFaqLD, buildServicesLD, buildWebPageLD } from '@/lib/seo';
+import { ServerPricingService, PricingPackage, Campaign } from '@/services';
 
 export const metadata: Metadata = {
   title: 'Fiyatlandırma | İlkalbüm Fotoğrafçılık',
@@ -27,7 +28,7 @@ export const metadata: Metadata = {
 };
 
 
-type Campaign = {
+type LocalCampaign = {
   title: string;
   description: string;
   note?: string;
@@ -39,34 +40,14 @@ type Campaign = {
 
 export default async function FiyatlandirmaPage() {
   let packages: PricingPackage[] = [];
-  let campaign: Campaign | null = null;
+  let campaign: LocalCampaign | null = null;
 
-  // Pricing fetch (güvenli)
-  try {
-    const res =  await fetch('http://api.ilkalbum.com/api/pricing', {
-      next: { revalidate: 60 },
-    });
-    if (res.ok) {
-      packages = await res.json();
-    } else {
-      console.error('Pricing fetch failed status:', res.status);
-    }
-  } catch (err) {
-    console.error('Pricing fetch error:', err);
-  }
-
-  // Campaign fetch (güvenli) - doğru endpoint /api/campaigns olmalı
-  try {
-    const campaignRes =  await fetch('http://api.ilkalbum.com/api/campaigns', {
-      next: { revalidate: 60 },
-    });
-    if (campaignRes.ok) {
-      const campaigns = await campaignRes.json();
-      campaign = campaigns.find((c: any) => c.isActive && c.type === 'pricing') || null;
-    }
-  } catch (err) {
-    console.error('Campaign fetch error:', err);
-  }
+  // Use ServerPricingService with shorter cache for immediate updates
+  packages = await ServerPricingService.getPricingPackagesSSR(0);
+  
+  // Get campaigns and find active pricing campaign
+  const campaigns = await ServerPricingService.getActiveCampaignsSSR(0);
+  campaign = campaigns.find((c: any) => c.isActive && c.type === 'pricing') || null;
 
   // Build structured data pieces
   const faqLD = buildFaqLD([
@@ -80,9 +61,9 @@ export default async function FiyatlandirmaPage() {
   ]);
   const servicesLD = buildServicesLD(packages.map(p => ({
     id: p._id,
-    name: p.name,
-    price: p.price,
-    category: (p.categories && p.categories[0]) || 'Fotoğrafçılık'
+    name: p.title || p.name || 'Paket',
+    price: `${p.price}₺`,
+    category: p.category || (p.categories && p.categories[0]) || 'Fotoğrafçılık'
   })));
   const webPageLD = buildWebPageLD({
     name: 'Fiyatlandırma',

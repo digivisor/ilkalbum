@@ -9,6 +9,7 @@ import { Textarea } from '@/components/ui/textarea';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import * as z from 'zod';
+import { ContactService } from '@/services';
 import { Header } from '@/components/Header';
 import { Footer } from '@/components/Footer';
 
@@ -35,25 +36,19 @@ export default function IletisimPage() {
     setSubmitMessage('');
     
     try {
-      const response = await fetch('http://api.ilkalbum.com/api/contact', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(data),
+      const result = await ContactService.submitContactForm({
+        name: data.name,
+        email: data.email,
+        phone: data.phone,
+        subject: data.subject,
+        message: data.message
       });
       
-      const result = await response.json();
-      
-      if (response.ok) {
-        setSubmitMessage(result.message);
-        reset();
-      } else {
-        setSubmitMessage(result.message || 'Mesaj gönderilirken bir hata oluştu.');
-      }
+      setSubmitMessage(result.message || 'Form gönderildi');
+      reset();
     } catch (error) {
-      console.error('Form gönderim hatası:', error);
-      setSubmitMessage('Bağlantı hatası. Lütfen daha sonra tekrar deneyin.');
+      console.error('Contact form error:', error);
+      setSubmitMessage('Mesaj gönderilirken bir hata oluştu. Lütfen tekrar deneyin.');
     } finally {
       setIsSubmitting(false);
     }

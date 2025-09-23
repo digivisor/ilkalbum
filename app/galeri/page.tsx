@@ -7,6 +7,7 @@ import { Button } from '@/components/ui/button';
 import { Dialog, DialogContent } from '@/components/ui/dialog';
 import { Header } from '@/components/Header';
 import { Footer } from '@/components/Footer';
+import { GalleryService } from '@/services';
 
 const categories = [
   { id: 'all', name: 'Tümü' },
@@ -71,22 +72,28 @@ export default function GaleriPage() {
   const [videos, setVideos] = useState<GalleryVideo[]>(fallbackVideos);
   const [loading, setLoading] = useState(true);
 
-  // Fetch gallery data from backend
+  // Pagination states
+  const [currentPage, setCurrentPage] = useState(1);
+  const [itemsPerPage] = useState(12); // 12 items per page to reduce load
+  const [hasMore, setHasMore] = useState(true);
+
+  // Fetch gallery data from backend using service layer with immediate updates
   useEffect(() => {
     const fetchGalleryData = async () => {
       try {
         setLoading(true);
-        const response = await fetch('http://api.ilkalbum.com/api/gallery');
+        const response = await GalleryService.getGalleryItems();
         
-        if (response.ok) {
-          const galleryData = await response.json();
+        if (response.success && response.data) {
+          const galleryData = response.data;
           
-          // Separate photos and videos from backend data
+          // Separate photos and videos from backend data with lazy loading
           const backendPhotos = galleryData
             .filter((item: any) => item.type === 'photo')
+            .slice(0, 50) // Limit initial load to 50 photos maximum
             .map((item: any) => ({
               id: item._id,
-              src: item.url,
+              src: item.imageUrl || item.url,
               category: item.category,
               title: item.title,
               description: item.description
@@ -94,9 +101,10 @@ export default function GaleriPage() {
           
           const backendVideos = galleryData
             .filter((item: any) => item.type === 'video')
+            .slice(0, 20) // Limit initial load to 20 videos maximum
             .map((item: any) => ({
               id: item._id,
-              src: item.url,
+              src: item.imageUrl || item.url,
               poster: item.thumbnailUrl || 'https://images.pexels.com/photos/1024993/pexels-photo-1024993.jpeg?auto=compress&cs=tinysrgb&w=400&h=400&fit=crop',
               category: item.category,
               title: item.title,
@@ -124,6 +132,11 @@ export default function GaleriPage() {
     fetchGalleryData();
   }, []);
 
+  // Reset page when category changes
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [selectedCategory, contentType]);
+
   const filteredPhotos = selectedCategory === 'all'
     ? photos
     : photos.filter(photo => photo.category === selectedCategory);
@@ -131,6 +144,22 @@ export default function GaleriPage() {
   const filteredVideos = selectedCategory === 'all'
     ? videos
     : videos.filter(video => video.category === selectedCategory);
+
+  // Pagination calculation
+  const getCurrentPageItems = () => {
+    const currentItems = contentType === 'photo' ? filteredPhotos : filteredVideos;
+    const startIndex = (currentPage - 1) * itemsPerPage;
+    const endIndex = startIndex + itemsPerPage;
+    return currentItems.slice(startIndex, endIndex);
+  };
+
+  const getTotalPages = () => {
+    const currentItems = contentType === 'photo' ? filteredPhotos : filteredVideos;
+    return Math.ceil(currentItems.length / itemsPerPage);
+  };
+
+  const currentItems = getCurrentPageItems();
+  const totalPages = getTotalPages();
 
   return (
     <>
@@ -195,37 +224,87 @@ export default function GaleriPage() {
                   <p className="text-gray-600">Galeri yükleniyor...</p>
                 </div>
               </div>
-            ) : contentType === 'photo' ? (
-              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-                {filteredPhotos.map((photo) => (
-                  <div
-                    key={photo.id}
-                    className="group relative overflow-hidden rounded-xl cursor-pointer aspect-square"
-                    onClick={() => setSelectedImage(photo)}
-                  >
-                    <img
-                      src={photo.src}
-                      alt={photo.title}
-                      className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                    <div className="absolute bottom-6 left-4 text-white transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300">
-                      <h3 className="font-semibold text-sm">{photo.title}</h3>
-                    </div>
-                  </div>
-                ))}
+            ) : currentItems.length === 0 ? (
+              <div className="text-center py-20">
+                <p className="text-gray-500">Bu kategoride henüz içerik bulunmuyor.</p>
               </div>
+            ) : contentType === 'photo' ? (
+              <>
+                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+                  {currentItems.map((photo) => (
+                    <div
+                      key={photo.id}
+                      className="group relative overflow-hidden rounded-xl cursor-pointer aspect-square"
+                      onClick={() => setSelectedImage(photo)}
+                    >
+                      <img
+                        src={photo.src}
+                        alt={photo.title}
+                        className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                        loading="lazy"
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                      <div className="absolute bottom-6 left-4 text-white transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300">
+                        <h3 className="font-semibold text-sm">{photo.title}</h3>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+                
+                {/* Pagination Controls */}
+                {totalPages > 1 && (
+                  <div className="flex justify-center items-center space-x-4 mt-12">
+                    <Button
+                      variant="outline"
+                      onClick={() => setCurrentPage(Math.max(1, currentPage - 1))}
+                      disabled={currentPage === 1}
+                      className="px-4 py-2"
+                    >
+                      Önceki
+                    </Button>
+                    
+                    <div className="flex items-center space-x-2">
+                      {Array.from({ length: Math.min(5, totalPages) }, (_, i) => {
+                        const pageNumber = Math.max(1, Math.min(totalPages - 4, currentPage - 2)) + i;
+                        if (pageNumber <= totalPages) {
+                          return (
+                            <Button
+                              key={pageNumber}
+                              variant={pageNumber === currentPage ? "default" : "outline"}
+                              onClick={() => setCurrentPage(pageNumber)}
+                              className="w-10 h-10 p-0"
+                            >
+                              {pageNumber}
+                            </Button>
+                          );
+                        }
+                        return null;
+                      })}
+                    </div>
+                    
+                    <Button
+                      variant="outline"
+                      onClick={() => setCurrentPage(Math.min(totalPages, currentPage + 1))}
+                      disabled={currentPage === totalPages}
+                      className="px-4 py-2"
+                    >
+                      Sonraki
+                    </Button>
+                  </div>
+                )}
+              </>
             ) : (
-              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-                {filteredVideos.map((video) => (
+              <>
+                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+                  {currentItems.map((video) => (
                   <div
                     key={video.id}
                     className="group relative overflow-hidden rounded-xl cursor-pointer aspect-square bg-black"
-                    onClick={() => setSelectedVideo(video)}
+                    onClick={() => setSelectedVideo(video as any)}
                   >
                     <video
                       src={video.src}
-                      poster={video.poster}
+                      poster={(video as any).poster}
                       className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                       muted
                       preload="metadata"
@@ -237,8 +316,51 @@ export default function GaleriPage() {
                       {video.title}
                     </div>
                   </div>
-                ))}
-              </div>
+                  ))}
+                </div>
+                
+                {/* Pagination Controls for Videos */}
+                {totalPages > 1 && (
+                  <div className="flex justify-center items-center space-x-4 mt-12">
+                    <Button
+                      variant="outline"
+                      onClick={() => setCurrentPage(Math.max(1, currentPage - 1))}
+                      disabled={currentPage === 1}
+                      className="px-4 py-2"
+                    >
+                      Önceki
+                    </Button>
+                    
+                    <div className="flex items-center space-x-2">
+                      {Array.from({ length: Math.min(5, totalPages) }, (_, i) => {
+                        const pageNumber = Math.max(1, Math.min(totalPages - 4, currentPage - 2)) + i;
+                        if (pageNumber <= totalPages) {
+                          return (
+                            <Button
+                              key={pageNumber}
+                              variant={pageNumber === currentPage ? "default" : "outline"}
+                              onClick={() => setCurrentPage(pageNumber)}
+                              className="w-10 h-10 p-0"
+                            >
+                              {pageNumber}
+                            </Button>
+                          );
+                        }
+                        return null;
+                      })}
+                    </div>
+                    
+                    <Button
+                      variant="outline"
+                      onClick={() => setCurrentPage(Math.min(totalPages, currentPage + 1))}
+                      disabled={currentPage === totalPages}
+                      className="px-4 py-2"
+                    >
+                      Sonraki
+                    </Button>
+                  </div>
+                )}
+              </>
             )}
           </div>
         </section>
