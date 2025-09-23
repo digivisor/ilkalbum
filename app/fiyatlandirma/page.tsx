@@ -35,16 +35,17 @@ type Campaign = {
   expiresAt: string;
 };
 
-
-//güncelleme 
-
+// PricingPackage tipi client componente taşındı
 
 export default async function FiyatlandirmaPage() {
   let packages: PricingPackage[] = [];
   let campaign: Campaign | null = null;
 
+  // Pricing fetch (güvenli)
   try {
-    const res = await fetch('http://api.ilkalbum.com/api/pricing', { cache: 'no-store' });
+    const res =  await fetch('http://api.ilkalbum.com/api/pricing', {
+      next: { revalidate: 60 },
+    });
     if (res.ok) {
       packages = await res.json();
     } else {
