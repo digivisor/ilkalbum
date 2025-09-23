@@ -371,6 +371,7 @@ export default function GaleriPage() {
       <Dialog open={!!selectedImage || !!selectedVideo} onOpenChange={() => { setSelectedImage(null); setSelectedVideo(null); }}>
         <DialogContent className="max-w-xl p-0 bg-white rounded-2xl overflow-hidden border border-pink-100 shadow-xl">
           <div className="relative">
+            {/* Close Button */}
             <button
               onClick={() => { setSelectedImage(null); setSelectedVideo(null); }}
               className="absolute top-3 right-3 z-10 w-8 h-8 flex items-center justify-center rounded-full bg-white shadow-md hover:bg-pink-50 border border-pink-100 text-pink-600 transition"
