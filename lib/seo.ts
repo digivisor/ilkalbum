@@ -59,7 +59,7 @@ export function buildOrganizationLD() {
   };
 }
 
-// LocalBusiness builder for location-rich pages (optional geo)
+
 export interface LocalBusinessInput {
   name: string;
   telephone: string;

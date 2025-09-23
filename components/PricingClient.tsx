@@ -395,7 +395,7 @@ export function PricingClient({ packages, campaign }: Props) {
           <div className="rounded-2xl border border-pink-100 bg-white hover:shadow-md transition-all p-5">
             <div className="text-sm md:text-base">
               <p className="font-medium text-gray-800 mb-2">Fiyat Politikası</p>
-              <p className="text-gray-600 leading-relaxed">Fiyatlar İstanbul içi standart çekimler için geçerlidir. Şehir dışı çekimlerde ulaşım & konaklama eklenir.</p>
+              <p className="text-gray-600 leading-relaxed">Fiyatlar Antalya içi standart çekimler için geçerlidir. Şehir dışı çekimlerde ulaşım & konaklama eklenir.</p>
             </div>
           </div>
           

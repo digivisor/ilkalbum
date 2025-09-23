@@ -1,7 +1,8 @@
 import { MetadataRoute } from 'next';
 import { SITE_URL } from '@/lib/seo';
 
-// Static pages; extend with dynamic gallery items if slugs available.
+
+
 export default function sitemap(): MetadataRoute.Sitemap {
   const base = SITE_URL.replace(/\/$/, '');
   const now = new Date().toISOString();

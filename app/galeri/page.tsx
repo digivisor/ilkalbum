@@ -76,7 +76,7 @@ export default function GaleriPage() {
     const fetchGalleryData = async () => {
       try {
         setLoading(true);
-        const response = await fetch('http://localhost:5000/api/gallery');
+        const response = await fetch('http://api.ilkalbum.com/api/gallery');
         
         if (response.ok) {
           const galleryData = await response.json();

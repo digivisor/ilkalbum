@@ -43,7 +43,7 @@ export default async function FiyatlandirmaPage() {
 
   // Pricing fetch (güvenli)
   try {
-    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/pricing`, {
+    const res =  await fetch('http://api.ilkalbum.com/api/pricing', {
       next: { revalidate: 60 },
     });
     if (res.ok) {
@@ -57,7 +57,7 @@ export default async function FiyatlandirmaPage() {
 
   // Campaign fetch (güvenli) - doğru endpoint /api/campaigns olmalı
   try {
-    const campaignRes = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/campaigns`, {
+    const campaignRes =  await fetch('http://api.ilkalbum.com/api/campaigns', {
       next: { revalidate: 60 },
     });
     if (campaignRes.ok) {

@@ -16,7 +16,7 @@ export default async function Home() {
   // Kampanya verilerini çek
   let campaign = null;
   try {
-    const campaignRes = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/campaigns`, {
+    const campaignRes =  await fetch('http://api.ilkalbum.com/api/campaigns', {
       next: { revalidate: 60 },
     });
     
