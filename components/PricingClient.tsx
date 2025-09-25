@@ -109,7 +109,7 @@ function FaqGrid({ faqs }: { faqs: FaqItem[] }) {
         return (
           <div
             key={idx}
-            className={`rounded-2xl border transition-all bg-white hover:shadow-md ${open ? 'border-pink-300 shadow' : 'border-pink-100'}`}
+            className={`rounded-2xl border transition-all bg-white hover:shadow-md ${open ? 'border-primary/30 shadow' : 'border-primary/10'}`}
           >
             <button
               type="button"
@@ -119,7 +119,7 @@ function FaqGrid({ faqs }: { faqs: FaqItem[] }) {
               <span className="font-medium text-gray-800 text-sm md:text-base leading-snug pr-2">
                 {f.q}
               </span>
-              <span className={`inline-flex h-6 w-6 items-center justify-center rounded-full text-xs font-bold transition-colors ${open ? 'bg-pink-600 text-white' : 'bg-pink-100 text-pink-600'}`}>{open ? '−' : '+'}</span>
+              <span className={`inline-flex h-6 w-6 items-center justify-center rounded-full text-xs font-bold transition-colors ${open ? 'bg-primary text-white' : 'bg-primary/10 text-primary'}`}>{open ? '−' : '+'}</span>
             </button>
             {open && (
               <div className="px-5 pb-5 -mt-2 text-[13px] md:text-sm text-gray-600 leading-relaxed">
@@ -142,12 +142,12 @@ export function PricingClient({ packages, campaign }: Props) {
   if (!packages || packages.length === 0) {
     return (
       <div className="space-y-16">
-        <div className="text-center py-24 bg-white rounded-3xl border border-pink-100 shadow-sm">
+        <div className="text-center py-24 bg-white rounded-3xl border border-primary/10 shadow-sm">
           <div className="max-w-md mx-auto">
-            <AlertCircle className="w-14 h-14 text-pink-500 mx-auto mb-6" />
+            <AlertCircle className="w-14 h-14 text-primary mx-auto mb-6" />
             <h2 className="text-2xl font-playfair font-bold text-gray-900 mb-4">Henüz paket bulunamadı</h2>
             <p className="text-gray-600 mb-6">Paket verileri şu anda yüklenemedi veya eklenmemiş. Daha sonra tekrar deneyin ya da bize ulaşın.</p>
-            <Button onClick={() => (window.location.href = '/iletisim')} className="bg-pink-600 hover:bg-pink-700 text-white">
+            <Button onClick={() => (window.location.href = '/iletisim')} className="bg-primary hover:bg-primary/90 text-white">
               İletişime Geç
             </Button>
           </div>
@@ -175,8 +175,8 @@ export function PricingClient({ packages, campaign }: Props) {
             onClick={() => setSelectedCategory(cat.id)}
             className={`px-5 py-2 rounded-full text-sm font-medium border transition-all ${
               selectedCategory === cat.id
-                ? 'bg-pink-600 border-pink-600 text-white shadow'
-                : 'border-pink-200 text-pink-600 hover:bg-pink-50'
+                ? 'bg-primary border-primary text-white shadow'
+                : 'border-primary/20 text-primary hover:bg-primary/5'
             }`}
           >
             {cat.label}
@@ -187,7 +187,7 @@ export function PricingClient({ packages, campaign }: Props) {
       {/* Paket Grid */}
       {filtered.length === 0 && (
         <div className="flex items-center justify-center gap-3 text-sm text-gray-500 bg-white p-6 rounded-xl border">
-          <AlertCircle className="w-5 h-5 text-pink-500" /> Seçilen kategori için paket bulunamadı.
+          <AlertCircle className="w-5 h-5 text-primary" /> Seçilen kategori için paket bulunamadı.
         </div>
       )}
 
@@ -201,9 +201,9 @@ export function PricingClient({ packages, campaign }: Props) {
           
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {filtered.map(pkg => (
-              <div key={pkg._id} className={`relative bg-white rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 overflow-hidden border-2 ${pkg.isPopular ? 'border-pink-500' : 'border-gray-100'}`}>
+              <div key={pkg._id} className={`relative bg-white rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 overflow-hidden border-2 ${pkg.isPopular ? 'border-primary' : 'border-gray-100'}`}>
                 {pkg.isPopular && (
-                  <div className="absolute top-0 left-0 right-0 bg-gradient-to-r from-pink-500 to-pink-600 text-white text-center py-2 text-xs font-semibold tracking-wide">
+                  <div className="absolute top-0 left-0 right-0 bg-gradient-to-r from-primary to-primary/80 text-white text-center py-2 text-xs font-semibold tracking-wide">
                     ⭐ EN ÇOK TERCİH EDİLEN
                   </div>
                 )}
@@ -212,7 +212,7 @@ export function PricingClient({ packages, campaign }: Props) {
                     <h3 className="text-xl font-bold text-gray-900 mb-2">{pkg.name}</h3>
                     <div className="flex flex-wrap justify-center gap-1 mb-2">
                       {pkg.categories && pkg.categories.map((category: string, index: number) => (
-                        <span key={index} className="px-2 py-1 bg-pink-100 text-pink-700 text-xs rounded-full">
+                        <span key={index} className="px-2 py-1 bg-primary/10 text-primary text-xs rounded-full">
                           {category === 'Paketler' && pkg.customCategoryName 
                             ? pkg.customCategoryName 
                             : category}
@@ -223,7 +223,7 @@ export function PricingClient({ packages, campaign }: Props) {
                   </div>
                   <div className="text-center mb-6">
                     <div className="flex items-center justify-center gap-2 mb-1">
-                      <span className="text-2xl font-bold text-pink-600">{pkg.price}</span>
+                      <span className="text-2xl font-bold text-primary">{pkg.price}</span>
                       {pkg.originalPrice && (
                         <span className="text-lg text-gray-400 line-through">{pkg.originalPrice}</span>
                       )}
@@ -239,7 +239,7 @@ export function PricingClient({ packages, campaign }: Props) {
                     ))}
                   </div>
                   <Button 
-                    className={`w-full ${pkg.isPopular ? 'bg-gradient-to-r from-pink-600 to-pink-700 hover:from-pink-700 hover:to-pink-800 text-white' : 'bg-gray-100 hover:bg-gray-200 text-gray-900'}`}
+                    className={`w-full ${pkg.isPopular ? 'bg-gradient-to-r from-primary to-primary/80 hover:from-primary/90 hover:to-primary/70 text-white' : 'bg-gray-100 hover:bg-gray-200 text-gray-900'}`}
                     onClick={() => {
                       setSelectedPackage((pkg as any).name || (pkg as any).title || 'Paket');
                       setIsReservationModalOpen(true);
@@ -266,9 +266,9 @@ export function PricingClient({ packages, campaign }: Props) {
         /* Normal kategori görünümü */
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
         {filtered.map(pkg => (
-          <div key={pkg._id} className={`relative bg-white rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 overflow-hidden ${pkg.isPopular ? 'ring-2 ring-pink-500' : ''}`}>
+          <div key={pkg._id} className={`relative bg-white rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 overflow-hidden ${pkg.isPopular ? 'ring-2 ring-primary' : ''}`}>
             {pkg.isPopular && (
-              <div className="absolute top-0 left-0 right-0 bg-pink-500 text-white text-center py-2 text-xs font-semibold tracking-wide">
+              <div className="absolute top-0 left-0 right-0 bg-primary text-white text-center py-2 text-xs font-semibold tracking-wide">
                 EN ÇOK TERCİH EDİLEN
               </div>
             )}
@@ -288,7 +288,7 @@ export function PricingClient({ packages, campaign }: Props) {
               </div>
               <div className="text-center mb-6">
                 <div className="flex items-center justify-center gap-2 mb-1">
-                  <span className="text-3xl font-bold text-pink-600">{pkg.price}</span>
+                  <span className="text-3xl font-bold text-primary">{pkg.price}</span>
                   <span className="text-base text-gray-400 line-through">{pkg.originalPrice}</span>
                 </div>
                 <p className="text-[11px] text-gray-400">KDV dahil</p>
@@ -302,7 +302,7 @@ export function PricingClient({ packages, campaign }: Props) {
                 ))}
               </div>
               <Button 
-                className={`w-full ${pkg.isPopular ? 'bg-pink-600 hover:bg-pink-700 text-white' : 'bg-gray-100 hover:bg-gray-200 text-gray-900'}`}
+                className={`w-full ${pkg.isPopular ? 'bg-primary hover:bg-primary/90 text-white' : 'bg-gray-100 hover:bg-gray-200 text-gray-900'}`}
                 onClick={() => {
                   setSelectedPackage((pkg as any).name || (pkg as any).title || 'Paket');
                   setIsReservationModalOpen(true);
@@ -330,10 +330,10 @@ export function PricingClient({ packages, campaign }: Props) {
       {filtered.length > 1 && selectedCategory !== 'packages' && (
         <div className="space-y-8">
           <h2 className="text-2xl font-playfair font-bold text-gray-900 text-center">Paket Karşılaştırma</h2>
-          <div className="overflow-x-auto rounded-2xl border border-pink-100 bg-white">
+          <div className="overflow-x-auto rounded-2xl border border-primary/10 bg-white">
             <table className="w-full text-sm">
               <thead>
-                <tr className="bg-pink-50/60">
+                <tr className="bg-primary/5">
                   <th className="text-left p-4 font-semibold text-gray-700 w-56">Özellik</th>
                   {filtered.map(p => (
                     <th key={p._id} className="p-4 text-center font-semibold text-gray-700 whitespace-nowrap">{p.name}</th>
@@ -342,7 +342,7 @@ export function PricingClient({ packages, campaign }: Props) {
               </thead>
               <tbody>
                 {comparisonRows.map(row => (
-                  <tr key={row} className="border-t border-gray-100 hover:bg-pink-50/40 transition">
+                  <tr key={row} className="border-t border-gray-100 hover:bg-primary/5 transition">
                     <td className="p-3 text-gray-600 align-top w-56">{row}</td>
                     {filtered.map(p => (
                       <td key={p._id} className="p-3 text-center">
@@ -373,10 +373,10 @@ export function PricingClient({ packages, campaign }: Props) {
                 className="group relative bg-white rounded-3xl p-6 shadow-lg hover:shadow-xl transition-all duration-500 transform hover:-translate-y-2 overflow-hidden border border-gray-100/50"
               >
                 {/* Subtle Background */}
-                <div className="absolute inset-0 bg-gradient-to-br from-pink-50 to-rose-50 opacity-0 group-hover:opacity-50 transition-opacity duration-500" />
+                <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-primary/10 opacity-0 group-hover:opacity-50 transition-opacity duration-500" />
                 
                 {/* Icon Circle */}
-                <div className="relative z-10 mb-4 w-14 h-14 rounded-2xl bg-gradient-to-br from-pink-500 to-rose-500 flex items-center justify-center text-white shadow-lg group-hover:scale-110 transition-transform duration-300">
+                <div className="relative z-10 mb-4 w-14 h-14 rounded-2xl bg-gradient-to-br from-primary to-primary/80 flex items-center justify-center text-white shadow-lg group-hover:scale-110 transition-transform duration-300">
                   <IconComponent size={24} />
                 </div>
                 
@@ -390,7 +390,7 @@ export function PricingClient({ packages, campaign }: Props) {
                   </p>
                   
                   {/* Price Badge */}
-                  <div className="inline-flex items-center px-4 py-2 rounded-full bg-gradient-to-r from-pink-500 to-rose-500 text-white font-semibold text-sm shadow-md group-hover:shadow-lg transition-shadow duration-300">
+                  <div className="inline-flex items-center px-4 py-2 rounded-full bg-gradient-to-r from-primary to-primary/80 text-white font-semibold text-sm shadow-md group-hover:shadow-lg transition-shadow duration-300">
                     {s.price}
                   </div>
                 </div>
@@ -411,21 +411,21 @@ export function PricingClient({ packages, campaign }: Props) {
       <div className="max-w-5xl mx-auto">
         <h2 className="text-3xl font-playfair font-bold text-gray-900 text-center mb-8">Önemli Notlar</h2>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          <div className="rounded-2xl border border-pink-100 bg-white hover:shadow-md transition-all p-5">
+          <div className="rounded-2xl border border-primary/10 bg-white hover:shadow-md transition-all p-5">
             <div className="text-sm md:text-base">
               <p className="font-medium text-gray-800 mb-2">Fiyat Politikası</p>
               <p className="text-gray-600 leading-relaxed">Fiyatlar Antalya içi standart çekimler için geçerlidir. Şehir dışı çekimlerde ulaşım & konaklama eklenir.</p>
             </div>
           </div>
           
-          <div className="rounded-2xl border border-pink-100 bg-white hover:shadow-md transition-all p-5">
+          <div className="rounded-2xl border border-primary/10 bg-white hover:shadow-md transition-all p-5">
             <div className="text-sm md:text-base">
               <p className="font-medium text-gray-800 mb-2">Kampanya Şartları</p>
               <p className="text-gray-600 leading-relaxed">Belirtilen indirimler kampanya süresiyle sınırlıdır. Paket içerikleri ihtiyaca göre özelleştirilebilir.</p>
             </div>
           </div>
           
-          <div className="rounded-2xl border border-pink-100 bg-white hover:shadow-md transition-all p-5">
+          <div className="rounded-2xl border border-primary/10 bg-white hover:shadow-md transition-all p-5">
             <div className="text-sm md:text-base">
               <p className="font-medium text-gray-800 mb-2">Ödeme Koşulları</p>
               <p className="text-gray-600 leading-relaxed">Rezervasyon kesinleşmesi için <strong className="text-gray-800">%30 kapora</strong> alınır. Kalan bakiye teslimata kadar tamamlanmalıdır.</p>
@@ -435,12 +435,12 @@ export function PricingClient({ packages, campaign }: Props) {
       </div>
 
       {/* Alt CTA */}
-      <div className="relative overflow-hidden rounded-3xl bg-gradient-to-r from-pink-500 to-rose-500 p-10 text-center text-white">
+      <div className="relative overflow-hidden rounded-3xl bg-gradient-to-r from-primary to-primary/80 p-10 text-center text-white">
         <div className="relative z-10">
           <h2 className="text-2xl md:text-3xl font-playfair font-bold mb-4">Hala karar veremediniz mi?</h2>
           <p className="text-sm md:text-base opacity-90 max-w-2xl mx-auto mb-6">Size en uygun paketi birlikte belirleyelim. 10 dakikalık ücretsiz ön görüşme planlayın.</p>
           <Button 
-            className="bg-white text-pink-600 hover:bg-pink-50 font-semibold"
+            className="bg-white text-primary hover:bg-primary/5 font-semibold"
             onClick={() => window.location.href = '/iletisim'}
           >
             Ön Görüşme Talep Et

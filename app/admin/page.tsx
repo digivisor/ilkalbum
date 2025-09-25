@@ -80,7 +80,7 @@ export default function AdminPage() {
   if (loading) {
     return (
       <div className="min-h-screen flex items-center justify-center">
-        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-pink-600"></div>
+        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-burgundy-600"></div>
       </div>
     );
   }
@@ -90,7 +90,7 @@ export default function AdminPage() {
       <div className="min-h-screen flex items-center justify-center bg-gray-50">
         <Card className="w-full max-w-md">
           <CardHeader>
-            <CardTitle className="text-center text-2xl font-bold text-pink-600">
+            <CardTitle className="text-center text-2xl font-bold text-burgundy-600">
               İlkalbüm Admin
             </CardTitle>
           </CardHeader>
@@ -121,7 +121,7 @@ export default function AdminPage() {
               {loginError && (
                 <div className="text-red-600 text-sm">{loginError}</div>
               )}
-              <Button type="submit" className="w-full bg-pink-600 hover:bg-pink-700">
+              <Button type="submit" className="w-full bg-burgundy-600 hover:bg-burgundy-700">
                 Giriş Yap
               </Button>
             </form>
@@ -136,7 +136,7 @@ export default function AdminPage() {
       <header className="bg-white shadow-sm border-b">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-16">
-            <h1 className="text-2xl font-bold text-pink-600">İlkalbüm Admin</h1>
+            <h1 className="text-2xl font-bold text-burgundy-600">İlkalbüm Admin</h1>
             <Button
               variant="outline"
               onClick={handleLogout}
@@ -251,7 +251,7 @@ function DashboardContent() {
               <p className="text-sm font-medium text-gray-600">Toplam Fotoğraf</p>
               <p className="text-3xl font-bold text-gray-900">{stats.totalPhotos}</p>
             </div>
-            <ImageIcon className="w-8 h-8 text-pink-600" />
+            <ImageIcon className="w-8 h-8 text-burgundy-600" />
           </div>
         </CardContent>
       </Card>
@@ -263,7 +263,7 @@ function DashboardContent() {
               <p className="text-sm font-medium text-gray-600">Toplam Video</p>
               <p className="text-3xl font-bold text-gray-900">{stats.totalVideos}</p>
             </div>
-            <Video className="w-8 h-8 text-pink-600" />
+            <Video className="w-8 h-8 text-burgundy-600" />
           </div>
         </CardContent>
       </Card>
@@ -275,7 +275,7 @@ function DashboardContent() {
               <p className="text-sm font-medium text-gray-600">Toplam Paket</p>
               <p className="text-3xl font-bold text-gray-900">{stats.totalPackages}</p>
             </div>
-            <Package className="w-8 h-8 text-pink-600" />
+            <Package className="w-8 h-8 text-burgundy-600" />
           </div>
         </CardContent>
       </Card>
@@ -287,7 +287,7 @@ function DashboardContent() {
               <p className="text-sm font-medium text-gray-600">Okunmamış Mesaj</p>
               <p className="text-3xl font-bold text-gray-900">{stats.unreadMessages}</p>
             </div>
-            <MessageSquare className="w-8 h-8 text-pink-600" />
+            <MessageSquare className="w-8 h-8 text-burgundy-600" />
           </div>
         </CardContent>
       </Card>
@@ -519,7 +519,7 @@ const convertGoogleDriveUrl = (url: string) => {
         <h2 className="text-2xl font-bold text-gray-900">Galeri Yönetimi</h2>
         <Button
           onClick={() => setShowAddForm(true)}
-          className="bg-pink-600 hover:bg-pink-700"
+          className="bg-burgundy-600 hover:bg-burgundy-700"
         >
           <Plus size={16} className="mr-2" />
           Yeni Ekle
@@ -640,7 +640,7 @@ const convertGoogleDriveUrl = (url: string) => {
                     >
                       {uploading ? (
                         <>
-                          <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-pink-600"></div>
+                          <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-burgundy-600"></div>
                           <span className="text-sm text-gray-600">Yükleniyor...</span>
                         </>
                       ) : (
@@ -695,7 +695,7 @@ const convertGoogleDriveUrl = (url: string) => {
               )}
 
               <div className="flex space-x-4">
-                <Button type="submit" className="bg-pink-600 hover:bg-pink-700">
+                <Button type="submit" className="bg-burgundy-600 hover:bg-burgundy-700">
                   {editingItem ? 'Güncelle' : 'Ekle'}
                 </Button>
                 <Button
@@ -923,7 +923,7 @@ function PricingManagement() {
         <h2 className="text-2xl font-bold text-gray-900">Fiyatlandırma Yönetimi</h2>
         <Button
           onClick={() => setShowAddForm(true)}
-          className="bg-pink-600 hover:bg-pink-700"
+          className="bg-burgundy-600 hover:bg-burgundy-700"
         >
           <Plus size={16} className="mr-2" />
           Yeni Paket Ekle
@@ -967,7 +967,7 @@ function PricingManagement() {
                               setFormData({ ...formData, categories: formData.categories.filter(c => c !== category) });
                             }
                           }}
-                          className="rounded border-gray-300 text-pink-600 focus:ring-pink-500"
+                          className="rounded border-gray-300 text-burgundy-600 focus:ring-burgundy-500"
                         />
                         <span className="text-sm text-gray-700">{category}</span>
                       </label>
@@ -990,7 +990,7 @@ function PricingManagement() {
                               });
                             }
                           }}
-                          className="rounded border-gray-300 text-pink-600 focus:ring-pink-500"
+                          className="rounded border-gray-300 text-burgundy-600 focus:ring-burgundy-500"
                         />
                         <span className="text-sm text-gray-700 font-medium">Paketler (Özel Kategori)</span>
                       </label>
@@ -1005,7 +1005,7 @@ function PricingManagement() {
                             value={formData.customCategoryName}
                             onChange={(e) => setFormData({ ...formData, customCategoryName: e.target.value })}
                             placeholder="Örn: Premium Paketler, Özel Çekimler"
-                            className="w-full px-2 py-1 text-sm border border-gray-300 rounded focus:outline-none focus:ring-1 focus:ring-pink-500"
+                            className="w-full px-2 py-1 text-sm border border-gray-300 rounded focus:outline-none focus:ring-1 focus:ring-burgundy-500"
                             required={formData.categories.includes('Paketler')}
                           />
                         </div>
@@ -1132,7 +1132,7 @@ function PricingManagement() {
               </div>
 
               <div className="flex space-x-4">
-                <Button type="submit" className="bg-pink-600 hover:bg-pink-700">
+                <Button type="submit" className="bg-burgundy-600 hover:bg-burgundy-700">
                   {editingPackage ? 'Güncelle' : 'Ekle'}
                 </Button>
                 <Button
@@ -1169,7 +1169,7 @@ function PricingManagement() {
               <div className="flex items-center justify-between mb-4">
                 <h3 className="font-semibold text-gray-900">{pkg.name}</h3>
                 {pkg.isPopular && (
-                  <Badge className="bg-pink-600">Popüler</Badge>
+                  <Badge className="bg-burgundy-600">Popüler</Badge>
                 )}
               </div>
               <p className="text-sm text-gray-600 mb-2">
@@ -1183,7 +1183,7 @@ function PricingManagement() {
               </p>
               <p className="text-sm text-gray-600 mb-4">{pkg.duration}</p>
               <div className="flex items-center space-x-2 mb-4">
-                <span className="text-2xl font-bold text-pink-600">{pkg.price}</span>
+                <span className="text-2xl font-bold text-burgundy-600">{pkg.price}</span>
                 {pkg.originalPrice && (
                   <span className="text-lg text-gray-400 line-through">{pkg.originalPrice}</span>
                 )}
@@ -1285,8 +1285,8 @@ function MessagesManagement() {
             <Card 
               key={message._id} 
               className={`cursor-pointer transition-colors ${
-                selectedMessage?._id === message._id ? 'ring-2 ring-pink-500' : ''
-              } ${!message.isRead ? 'bg-pink-50' : ''}`}
+                selectedMessage?._id === message._id ? 'ring-2 ring-burgundy-500' : ''
+              } ${!message.isRead ? 'bg-burgundy-50' : ''}`}
               onClick={() => setSelectedMessage(message)}
             >
               <CardContent className="p-4">
@@ -1299,7 +1299,7 @@ function MessagesManagement() {
                       </Badge>
                     )}
                     {!message.isRead && (
-                      <Badge variant="default" className="bg-pink-600">Yeni</Badge>
+                      <Badge variant="default" className="bg-burgundy-600">Yeni</Badge>
                     )}
                     <Badge 
                       variant="outline"
@@ -1533,7 +1533,7 @@ function CampaignManagement() {
         <h2 className="text-2xl font-bold text-gray-900">Kampanya Yönetimi</h2>
         <Button
           onClick={() => setShowAddForm(true)}
-          className="bg-pink-600 hover:bg-pink-700"
+          className="bg-burgundy-600 hover:bg-burgundy-700"
         >
           <Plus size={16} className="mr-2" />
           Yeni Kampanya Ekle
@@ -1568,7 +1568,7 @@ function CampaignManagement() {
                   <select
                     value={formData.type}
                     onChange={(e) => setFormData({ ...formData, type: e.target.value })}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-pink-500"
+                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-burgundy-500"
                     required
                   >
                     <option value="homepage">Anasayfa Kampanyası</option>
@@ -1719,7 +1719,7 @@ function CampaignManagement() {
               </div>
 
               <div className="flex space-x-4">
-                <Button type="submit" className="bg-pink-600 hover:bg-pink-700">
+                <Button type="submit" className="bg-burgundy-600 hover:bg-burgundy-700">
                   {editingCampaign ? 'Güncelle' : 'Ekle'}
                 </Button>
                 <Button

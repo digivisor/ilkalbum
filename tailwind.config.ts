@@ -60,6 +60,21 @@ const config: Config = {
           '4': 'hsl(var(--chart-4))',
           '5': 'hsl(var(--chart-5))',
         },
+        // Brand colors with custom burgundy
+        burgundy: {
+          DEFAULT: '#721548',
+          50: '#fdf2f8',
+          100: '#fce7f3',
+          200: '#fbcfe8',
+          300: '#f9a8d4',
+          400: '#f472b6',
+          500: '#ec4899',
+          600: '#d946ef',
+          700: '#be185d',
+          800: '#9d174d',
+          900: '#721548',
+          950: '#4c1d2e',
+        },
       },
       keyframes: {
         'accordion-down': {

@@ -139,7 +139,7 @@ Mesaj: ${formData.message || 'Mesaj belirtilmedi'}
       <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto">
         <DialogHeader>
           <DialogTitle className="text-2xl font-playfair font-bold text-gray-900 flex items-center gap-2">
-            <Calendar className="w-6 h-6 text-pink-600" />
+            <Calendar className="w-6 h-6 text-primary" />
             {submitSuccess ? 'Rezervasyon Başarılı!' : 'Rezervasyon Yap'}
           </DialogTitle>
         </DialogHeader>
@@ -171,7 +171,7 @@ Mesaj: ${formData.message || 'Mesaj belirtilmedi'}
             {/* Ad Soyad */}
             <div className="space-y-2">
               <Label htmlFor="name" className="flex items-center gap-2">
-                <User className="w-4 h-4 text-pink-600" />
+                <User className="w-4 h-4 text-primary" />
                 Ad Soyad *
               </Label>
               <Input
@@ -181,14 +181,14 @@ Mesaj: ${formData.message || 'Mesaj belirtilmedi'}
                 value={formData.name}
                 onChange={(e) => handleInputChange('name', e.target.value)}
                 required
-                className="focus:ring-pink-500 focus:border-pink-500"
+                className="focus:ring-primary focus:border-primary"
               />
             </div>
 
             {/* Email */}
             <div className="space-y-2">
               <Label htmlFor="email" className="flex items-center gap-2">
-                <Mail className="w-4 h-4 text-pink-600" />
+                <Mail className="w-4 h-4 text-primary" />
                 E-posta *
               </Label>
               <Input
@@ -198,14 +198,14 @@ Mesaj: ${formData.message || 'Mesaj belirtilmedi'}
                 value={formData.email}
                 onChange={(e) => handleInputChange('email', e.target.value)}
                 required
-                className="focus:ring-pink-500 focus:border-pink-500"
+                className="focus:ring-primary focus:border-primary"
               />
             </div>
 
             {/* Telefon */}
             <div className="space-y-2">
               <Label htmlFor="phone" className="flex items-center gap-2">
-                <Phone className="w-4 h-4 text-pink-600" />
+                <Phone className="w-4 h-4 text-primary" />
                 Telefon *
               </Label>
               <Input
@@ -215,14 +215,14 @@ Mesaj: ${formData.message || 'Mesaj belirtilmedi'}
                 value={formData.phone}
                 onChange={(e) => handleInputChange('phone', e.target.value)}
                 required
-                className="focus:ring-pink-500 focus:border-pink-500"
+                className="focus:ring-primary focus:border-primary"
               />
             </div>
 
             {/* Seçilen Paket Bilgisi (Fiyatlandırma sayfası için) */}
             {selectedPackage && pageType === 'pricing' && (
-              <div className="bg-pink-50 border border-pink-200 rounded-lg p-4">
-                <div className="flex items-center gap-2 text-pink-700">
+              <div className="bg-primary/10 border border-primary/20 rounded-lg p-4">
+                <div className="flex items-center gap-2 text-primary/80">
                   <User className="w-4 h-4" />
                   <span className="font-medium">Seçili Paket: {selectedPackage}</span>
                 </div>
@@ -237,7 +237,7 @@ Mesaj: ${formData.message || 'Mesaj belirtilmedi'}
                   id="category"
                   value={formData.category}
                   onChange={(e) => handleInputChange('category', e.target.value)}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-pink-500"
+                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary"
                   required
                 >
                   <option value="">Kategori seçiniz</option>
@@ -257,7 +257,7 @@ Mesaj: ${formData.message || 'Mesaj belirtilmedi'}
                   id="campaignPackage"
                   value={formData.selectedPackage}
                   onChange={(e) => handleInputChange('selectedPackage', e.target.value)}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-pink-500"
+                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary"
                   required
                 >
                   <option value="">Paket seçiniz</option>
@@ -273,14 +273,14 @@ Mesaj: ${formData.message || 'Mesaj belirtilmedi'}
             {/* Tarih */}
             <div className="space-y-2">
               <Label htmlFor="date" className="flex items-center gap-2">
-                <CalendarDays className="w-4 h-4 text-pink-600" />
+                <CalendarDays className="w-4 h-4 text-primary" />
                 Tercih Edilen Tarih
               </Label>
               <Popover>
                 <PopoverTrigger asChild>
                   <Button
                     variant="outline"
-                    className="w-full justify-start text-left font-normal focus:ring-pink-500 focus:border-pink-500"
+                    className="w-full justify-start text-left font-normal focus:ring-primary focus:border-primary"
                   >
                     <CalendarDays className="mr-2 h-4 w-4" />
                     {selectedDate ? format(selectedDate, 'dd MMMM yyyy', { locale: tr }) : "Tarih seçiniz"}
@@ -302,11 +302,11 @@ Mesaj: ${formData.message || 'Mesaj belirtilmedi'}
             {/* Saat */}
             <div className="space-y-2">
               <Label htmlFor="time" className="flex items-center gap-2">
-                <Clock className="w-4 h-4 text-pink-600" />
+                <Clock className="w-4 h-4 text-primary" />
                 Tercih Edilen Saat
               </Label>
               <Select value={formData.time} onValueChange={(value) => handleInputChange('time', value)}>
-                <SelectTrigger className="focus:ring-pink-500 focus:border-pink-500">
+                <SelectTrigger className="focus:ring-primary focus:border-primary">
                   <SelectValue placeholder="Saat seçiniz" />
                 </SelectTrigger>
                 <SelectContent>
@@ -328,7 +328,7 @@ Mesaj: ${formData.message || 'Mesaj belirtilmedi'}
           {/* Mesaj */}
           <div className="space-y-2">
             <Label htmlFor="message" className="flex items-center gap-2">
-              <MessageSquare className="w-4 h-4 text-pink-600" />
+              <MessageSquare className="w-4 h-4 text-primary" />
               Ek Bilgiler / İstekler
             </Label>
             <Textarea
@@ -337,12 +337,12 @@ Mesaj: ${formData.message || 'Mesaj belirtilmedi'}
               value={formData.message}
               onChange={(e) => handleInputChange('message', e.target.value)}
               rows={4}
-              className="focus:ring-pink-500 focus:border-pink-500"
+              className="focus:ring-primary focus:border-primary"
             />
           </div>
 
           {/* Bilgilendirme */}
-          <div className="bg-pink-50 p-4 rounded-lg">
+          <div className="bg-primary/10 p-4 rounded-lg">
             <p className="text-sm text-gray-700">
               <strong>Not:</strong> Bu form sadece ön rezervasyon talebidir. Kesin rezervasyon için size döneceğiz ve detayları konuşacağız.
               {showPackages ? (
@@ -366,7 +366,7 @@ Mesaj: ${formData.message || 'Mesaj belirtilmedi'}
             <Button
               type="submit"
               disabled={isSubmitting}
-              className="flex-1 bg-pink-600 hover:bg-pink-700 text-white disabled:opacity-50"
+              className="flex-1 bg-primary hover:bg-primary/90 text-white disabled:opacity-50"
             >
               {isSubmitting ? 'Gönderiliyor...' : 'Rezervasyon Talebi Gönder'}
             </Button>

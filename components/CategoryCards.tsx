@@ -35,7 +35,7 @@ const categories = [
 
 export function CategoryCards() {
   return (
-    <section className="py-20 bg-gradient-to-b from-white to-pink-50">
+    <section className="py-20 bg-gradient-to-b from-white to-primary/10">
       <div className="container">
         <div className="text-center mb-16">
           <h2 className="text-3xl md:text-4xl lg:text-5xl font-playfair font-bold text-gray-900 mb-4">
@@ -77,7 +77,7 @@ export function CategoryCards() {
                     {category.description}
                   </p>
                   
-                  <div className="flex items-center text-pink-300 font-medium group-hover:text-white transition-colors">
+                  <div className="flex items-center text-white/80 font-medium group-hover:text-white transition-colors">
                     <span className="text-sm md:text-base">Detayları Keşfedin</span>
                     <ArrowRight size={20} className="ml-2 group-hover:translate-x-2 transition-transform duration-300" />
                   </div>
@@ -85,7 +85,7 @@ export function CategoryCards() {
               </div>
 
               {/* Hover efekti için ek gradient */}
-              <div className="absolute inset-0 bg-gradient-to-t from-pink-600/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+              <div className="absolute inset-0 bg-gradient-to-t from-primary/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
             </Link>
           ))}
         </div>
@@ -93,7 +93,7 @@ export function CategoryCards() {
         {/* Tüm kategorileri gör butonu */}
         <div className="text-center mt-12">
           <Link href="/kategoriler">
-            <Button className="bg-pink-600 hover:bg-pink-700 text-white px-8 py-3 rounded-full text-lg font-semibold transition-all duration-300 hover:scale-105">
+            <Button className="bg-primary hover:bg-primary/90 text-white px-8 py-3 rounded-full text-lg font-semibold transition-all duration-300 hover:scale-105">
               Tüm Kategorileri Görüntüle
             </Button>
           </Link>

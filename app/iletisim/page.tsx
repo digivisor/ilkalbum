@@ -166,7 +166,7 @@ export default function IletisimPage() {
                 <Button
                   type="submit"
                   disabled={isSubmitting}
-                  className="w-full bg-pink-600 hover:bg-pink-700 text-white py-3 rounded-lg font-semibold transition-colors duration-200"
+                  className="w-full bg-primary hover:bg-primary/90 text-white py-3 rounded-lg font-semibold transition-colors duration-200"
                 >
                   {isSubmitting ? (
                     <div className="flex items-center justify-center space-x-2">
@@ -186,13 +186,13 @@ export default function IletisimPage() {
             {/* Contact Info */}
             <div className="space-y-8">
               {/* Contact Details */}
-              <div className="bg-gradient-to-br from-pink-50 to-rose-50 p-8 rounded-2xl">
+              <div className="bg-gradient-to-br from-primary/5 to-primary/10 p-8 rounded-2xl">
                 <h2 className="text-2xl font-bold text-gray-900 mb-6">İletişim Bilgileri</h2>
                 
                 <div className="space-y-6">
                   <div className="flex items-start space-x-4">
-                    <div className="w-12 h-12 bg-pink-100 rounded-full flex items-center justify-center flex-shrink-0">
-                      <MapPin className="w-6 h-6 text-pink-600" />
+                    <div className="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center flex-shrink-0">
+                      <MapPin className="w-6 h-6 text-primary" />
                     </div>
                     <div>
                       <h3 className="font-semibold text-gray-900 mb-1">Adres</h3>
@@ -203,8 +203,8 @@ export default function IletisimPage() {
                   </div>
                   
                   <div className="flex items-start space-x-4">
-                    <div className="w-12 h-12 bg-pink-100 rounded-full flex items-center justify-center flex-shrink-0">
-                      <Phone className="w-6 h-6 text-pink-600" />
+                    <div className="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center flex-shrink-0">
+                      <Phone className="w-6 h-6 text-primary" />
                     </div>
                     <div>
                       <h3 className="font-semibold text-gray-900 mb-1">Telefon</h3>
@@ -214,8 +214,8 @@ export default function IletisimPage() {
                   </div>
                   
                   <div className="flex items-start space-x-4">
-                    <div className="w-12 h-12 bg-pink-100 rounded-full flex items-center justify-center flex-shrink-0">
-                      <Mail className="w-6 h-6 text-pink-600" />
+                    <div className="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center flex-shrink-0">
+                      <Mail className="w-6 h-6 text-primary" />
                     </div>
                     <div>
                       <h3 className="font-semibold text-gray-900 mb-1">E-posta</h3>
@@ -224,8 +224,8 @@ export default function IletisimPage() {
                   </div>
                   
                   <div className="flex items-start space-x-4">
-                    <div className="w-12 h-12 bg-pink-100 rounded-full flex items-center justify-center flex-shrink-0">
-                      <Clock className="w-6 h-6 text-pink-600" />
+                    <div className="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center flex-shrink-0">
+                      <Clock className="w-6 h-6 text-primary" />
                     </div>
                     <div>
                       <h3 className="font-semibold text-gray-900 mb-1">Çalışma Saatleri</h3>
@@ -247,20 +247,20 @@ export default function IletisimPage() {
                 </p>
                 
                 <div className="flex space-x-4">
-                  <a href="#" className="w-12 h-12 bg-pink-100 rounded-full flex items-center justify-center hover:bg-pink-200 transition-colors">
-                    <Instagram className="w-6 h-6 text-pink-600" />
+                  <a href="#" className="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center hover:bg-primary/20 transition-colors">
+                    <Instagram className="w-6 h-6 text-primary" />
                   </a>
-                  <a href="#" className="w-12 h-12 bg-pink-100 rounded-full flex items-center justify-center hover:bg-pink-200 transition-colors">
-                    <Facebook className="w-6 h-6 text-pink-600" />
+                  <a href="#" className="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center hover:bg-primary/20 transition-colors">
+                    <Facebook className="w-6 h-6 text-primary" />
                   </a>
-                  <a href="#" className="w-12 h-12 bg-pink-100 rounded-full flex items-center justify-center hover:bg-pink-200 transition-colors">
-                    <MessageCircle className="w-6 h-6 text-pink-600" />
+                  <a href="#" className="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center hover:bg-primary/20 transition-colors">
+                    <MessageCircle className="w-6 h-6 text-primary" />
                   </a>
                 </div>
               </div>
 
               {/* Quick Tips */}
-              <div className="bg-gradient-to-br from-pink-500 to-rose-500 p-8 rounded-2xl text-white">
+              <div className="bg-gradient-to-br from-primary to-primary/90 p-8 rounded-2xl text-white">
                 <h2 className="text-xl font-bold mb-4">💡 İletişim İpuçları</h2>
                 <ul className="space-y-2 text-sm opacity-90">
                   <li>• Düğün tarihinizi belirtirseniz daha hızlı dönüş yapabiliriz</li>

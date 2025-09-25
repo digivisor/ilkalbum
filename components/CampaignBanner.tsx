@@ -33,7 +33,7 @@ export function CampaignBanner({ campaign }: CampaignBannerProps) {
     <>
     <section className="py-20">
       <div className="container">
-        <div className="bg-gradient-to-r from-pink-500 to-rose-500 rounded-3xl p-8 md:p-12 text-white text-center overflow-hidden relative">
+        <div className="bg-gradient-to-r from-primary/80 to-primary rounded-3xl p-8 md:p-12 text-white text-center overflow-hidden relative">
 
           <div className="relative z-10 max-w-4xl mx-auto">
             <div className="flex items-center justify-center mb-6">
@@ -78,7 +78,7 @@ export function CampaignBanner({ campaign }: CampaignBannerProps) {
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Button 
                 size="lg" 
-                className="bg-white text-pink-600 hover:bg-gray-100 px-8 py-3 rounded-full font-semibold transition-all duration-300 hover:scale-105"
+                className="bg-white text-primary hover:bg-gray-100 px-8 py-3 rounded-full font-semibold transition-all duration-300 hover:scale-105"
                 onClick={() => window.location.href = '/iletisim'}
               >
                 İletişime Geç
@@ -86,7 +86,7 @@ export function CampaignBanner({ campaign }: CampaignBannerProps) {
               <Button 
                 size="lg" 
                 variant="outline" 
-                className="border-white text-pink-600 hover:bg-white hover:text-pink-600 px-8 py-3 rounded-full font-semibold transition-all duration-300"
+                className="border-white text-white hover:bg-white hover:text-primary px-8 py-3 rounded-full font-semibold transition-all duration-300"
                 onClick={() => setIsReservationModalOpen(true)}
               >
                 Hemen Rezervasyon

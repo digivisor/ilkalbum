@@ -103,24 +103,13 @@ export default function KategorilerPage() {
   return (
     <>
     <Header />
-    <div>
-      <div className="relative h-[70vh] flex items-center justify-center">
-        {/* Background Image */}
-        <div 
-          className="absolute inset-0 bg-cover bg-center bg-no-repeat"
-          style={{
-            backgroundImage: `url('/düğün1.jpg')`,
-          }}
-        />
-        {/* Overlay */}
-        <div className="absolute inset-0 bg-black bg-opacity-50" />
-        
-        {/* Content */}
-        <div className="container text-center relative z-10">
-          <h1 className="text-4xl md:text-5xl lg:text-6xl font-playfair font-bold text-white mb-6">
+    <div className="pt-20">
+      <div className="hero-gradient py-20">
+        <div className="container text-center">
+          <h1 className="text-4xl md:text-5xl lg:text-6xl font-playfair font-bold text-gray-900 mb-6">
             Çekim Kategorilerimiz
           </h1>
-          <p className="text-lg md:text-xl text-white/90 max-w-3xl mx-auto">
+          <p className="text-lg md:text-xl text-gray-600 max-w-3xl mx-auto">
             Her özel anınız için tasarlanmış profesyonel fotoğrafçılık hizmetleri. 
             Detaylı paket bilgileri ve örnek çalışmalarımızı inceleyin.
           </p>

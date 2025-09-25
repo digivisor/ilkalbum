@@ -16,32 +16,30 @@ const WhatsAppIcon = ({ size = 20 }: { size?: number }) => (
 
 export function Footer() {
   return (
-    <footer className="bg-gradient-to-r from-pink-50 to-rose-50 border-t border-pink-100">
+    <footer className="bg-gradient-to-r from-burgundy-50 to-burgundy-50 border-t border-burgundy-100">
       <div className="container py-12">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
           {/* Logo & Description */}
           <div className="space-y-4">
             <Link href="/" className="inline-flex items-center space-x-2">
-              <span className="text-2xl font-playfair font-bold text-pink-600">
-                ilkalbüm
-              </span>
+              <img src="/ilkalbum-logo.png" alt="ilkalbüm" className="h-8" />
             </Link>
             <p className="text-gray-600 text-sm leading-relaxed">
               Özel anlarınızı sanatsal bir dokunuşla ölümsüzleştiriyoruz. 
               Düğün, nişan ve yaşamın tüm güzel anları için profesyonel fotoğrafçılık hizmeti.
             </p>
             <div className="flex space-x-4">
-              <a href="#" className="text-pink-600 hover:text-pink-700 transition-colors">
+              <a href="#" className="text-primary hover:text-burgundy-700 transition-colors">
                 <Instagram size={20} />
               </a>
-              <a href="#" className="text-pink-600 hover:text-pink-700 transition-colors">
+              <a href="#" className="text-primary hover:text-burgundy-700 transition-colors">
                 <Facebook size={20} />
               </a>
               <a 
                 href="https://wa.me/905457845667?text=Merhaba,%20ben%20ilkalbüm%20sitesinden%20ulaşıyorum." 
                 target="_blank" 
                 rel="noopener noreferrer"
-                className="text-pink-600 hover:text-pink-700 transition-colors"
+                className="text-primary hover:text-burgundy-700 transition-colors"
                 title="WhatsApp ile iletişime geç"
               >
                 <WhatsAppIcon size={20} />
@@ -53,16 +51,16 @@ export function Footer() {
           <div className="space-y-4">
             <h3 className="text-lg font-semibold text-gray-900">Hızlı Linkler</h3>
             <nav className="space-y-2">
-              <Link href="/" className="block text-gray-600 hover:text-pink-600 transition-colors text-sm">
+              <Link href="/" className="block text-gray-600 hover:text-primary transition-colors text-sm">
                 Anasayfa
               </Link>
-              <Link href="/kategoriler" className="block text-gray-600 hover:text-pink-600 transition-colors text-sm">
+              <Link href="/kategoriler" className="block text-gray-600 hover:text-primary transition-colors text-sm">
                 Çekim Kategorileri
               </Link>
-              <Link href="/galeri" className="block text-gray-600 hover:text-pink-600 transition-colors text-sm">
+              <Link href="/galeri" className="block text-gray-600 hover:text-primary transition-colors text-sm">
                 Galeri
               </Link>
-              <Link href="/fiyatlandirma" className="block text-gray-600 hover:text-pink-600 transition-colors text-sm">
+              <Link href="/fiyatlandirma" className="block text-gray-600 hover:text-primary transition-colors text-sm">
                 Fiyatlandırma
               </Link>
             </nav>
@@ -72,38 +70,38 @@ export function Footer() {
           <div className="space-y-4">
             <h3 className="text-lg font-semibold text-gray-900">Hizmetlerimiz</h3>
             <nav className="space-y-2">
-              <Link href="/kategoriler" className="block text-gray-600 hover:text-pink-600 transition-colors text-sm">
+              <Link href="/kategoriler" className="block text-gray-600 hover:text-primary transition-colors text-sm">
                 Düğün Fotoğrafçılığı
               </Link>
-              <Link href="/kategoriler" className="block text-gray-600 hover:text-pink-600 transition-colors text-sm">
+              <Link href="/kategoriler" className="block text-gray-600 hover:text-primary transition-colors text-sm">
                 Nişan Çekimi
               </Link>
-              <Link href="/kategoriler" className="block text-gray-600 hover:text-pink-600 transition-colors text-sm">
+              <Link href="/kategoriler" className="block text-gray-600 hover:text-primary transition-colors text-sm">
                 Bebek Fotoğrafları
               </Link>
-              <Link href="/kategoriler" className="block text-gray-600 hover:text-pink-600 transition-colors text-sm">
+              <Link href="/kategoriler" className="block text-gray-600 hover:text-primary transition-colors text-sm">
                 Dış Çekim
               </Link>
               <div className="pt-4">
-                <p className="text-xs font-medium uppercase tracking-wide text-pink-600 mb-2">Antalya Hizmetleri</p>
+                <p className="text-xs font-medium uppercase tracking-wide text-primary mb-2">Antalya Hizmetleri</p>
                 <ul className="space-y-1">
                   <li>
-                    <Link href="/antalya/dugun-fotografcisi" className="block text-gray-600 hover:text-pink-600 transition-colors text-xs">
+                    <Link href="/antalya/dugun-fotografcisi" className="block text-gray-600 hover:text-primary transition-colors text-xs">
                       Antalya Düğün Fotoğrafçısı
                     </Link>
                   </li>
                   <li>
-                    <Link href="/antalya/nisan-cekimi" className="block text-gray-600 hover:text-pink-600 transition-colors text-xs">
+                    <Link href="/antalya/nisan-cekimi" className="block text-gray-600 hover:text-primary transition-colors text-xs">
                       Antalya Nişan Çekimi
                     </Link>
                   </li>
                   <li>
-                    <Link href="/antalya/yenidogan-bebek-cekimi" className="block text-gray-600 hover:text-pink-600 transition-colors text-xs">
+                    <Link href="/antalya/yenidogan-bebek-cekimi" className="block text-gray-600 hover:text-primary transition-colors text-xs">
                       Antalya Yenidoğan & Bebek
                     </Link>
                   </li>
                   <li>
-                    <Link href="/antalya/dis-cekim" className="block text-gray-600 hover:text-pink-600 transition-colors text-xs">
+                    <Link href="/antalya/dis-cekim" className="block text-gray-600 hover:text-primary transition-colors text-xs">
                       Antalya Dış Çekim
                     </Link>
                   </li>
@@ -117,25 +115,25 @@ export function Footer() {
             <h3 className="text-lg font-semibold text-gray-900">İletişim</h3>
             <div className="space-y-3">
               <div className="flex items-start space-x-3">
-                <MapPin size={16} className="text-pink-600 mt-1 flex-shrink-0" />
+                <MapPin size={16} className="text-primary mt-1 flex-shrink-0" />
                 <p className="text-gray-600 text-sm">
                  Emek Mh. Yeşilırmak Cd, 07060 Kepez/Antalya
                 </p>
               </div>
               <div className="flex items-center space-x-3">
-                <Phone size={16} className="text-pink-600 flex-shrink-0" />
+                <Phone size={16} className="text-primary flex-shrink-0" />
                 <a 
                   href="tel:+905457845667" 
-                  className="text-gray-600 hover:text-pink-600 transition-colors text-sm"
+                  className="text-gray-600 hover:text-primary transition-colors text-sm"
                 >
                   +90 545 784 56 67
                 </a>
               </div>
               <div className="flex items-center space-x-3">
-                <Mail size={16} className="text-pink-600 flex-shrink-0" />
+                <Mail size={16} className="text-primary flex-shrink-0" />
                 <a 
                   href="mailto:info@ilkalbum.com" 
-                  className="text-gray-600 hover:text-pink-600 transition-colors text-sm"
+                  className="text-gray-600 hover:text-primary transition-colors text-sm"
                 >
                   info@ilkalbum.com
                 </a>
@@ -144,7 +142,7 @@ export function Footer() {
           </div>
         </div>
 
-        <div className="border-t border-pink-200 mt-8 pt-8 text-center">
+        <div className="border-t border-primary/20 mt-8 pt-8 text-center">
           <p className="text-gray-500 text-sm">
             © 2025 İlkalbüm. Tüm hakları saklıdır.
           </p>

@@ -165,7 +165,7 @@ export default function GaleriPage() {
     <>
       <Header />
       <div className="pt-20">
-  <div className="py-20 bg-[linear-gradient(135deg,#ffffff,#fff6fa,#ffe6ef,#ffd4e7)]">
+  <div className="hero-gradient py-20">
           <div className="container text-center">
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-playfair font-bold text-gray-900 mb-6">
               Galeri
@@ -186,8 +186,8 @@ export default function GaleriPage() {
                   variant={selectedCategory === category.id ? "default" : "outline"}
                   className={`px-6 py-2 rounded-full transition-all duration-300 ${
                     selectedCategory === category.id
-                      ? 'bg-pink-600 hover:bg-pink-700 text-white'
-                      : 'border-pink-200 text-pink-600 hover:bg-pink-50'
+                      ? 'bg-primary hover:bg-primary/90 text-white'
+                      : 'border-primary/20 text-primary hover:bg-primary/5'
                   }`}
                   onClick={() => setSelectedCategory(category.id)}
                 >
@@ -198,18 +198,18 @@ export default function GaleriPage() {
 
             {/* Content Type Tabs */}
             <div className="flex justify-center mb-12">
-              <div className="inline-flex items-center rounded-full border border-pink-200 bg-white p-1 shadow-sm">
+              <div className="inline-flex items-center rounded-full border border-primary/20 bg-white p-1 shadow-sm">
                 <button
                   type="button"
                   onClick={() => { setContentType('photo'); setSelectedVideo(null); }}
-                  className={`px-6 py-2 text-sm font-medium rounded-full transition-all ${contentType === 'photo' ? 'bg-pink-600 text-white shadow' : 'text-pink-600 hover:text-pink-700'}`}
+                  className={`px-6 py-2 text-sm font-medium rounded-full transition-all ${contentType === 'photo' ? 'bg-primary text-white shadow' : 'text-primary hover:text-primary/90'}`}
                 >
                   Fotoğraf
                 </button>
                 <button
                   type="button"
                   onClick={() => { setContentType('video'); setSelectedImage(null); }}
-                  className={`px-6 py-2 text-sm font-medium rounded-full transition-all ${contentType === 'video' ? 'bg-pink-600 text-white shadow' : 'text-pink-600 hover:text-pink-700'}`}
+                  className={`px-6 py-2 text-sm font-medium rounded-full transition-all ${contentType === 'video' ? 'bg-primary text-white shadow' : 'text-primary hover:text-primary/90'}`}
                 >
                   Video
                 </button>
@@ -220,7 +220,7 @@ export default function GaleriPage() {
             {loading ? (
               <div className="flex justify-center items-center py-20">
                 <div className="text-center">
-                  <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-pink-600 mx-auto mb-4"></div>
+                  <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary mx-auto mb-4"></div>
                   <p className="text-gray-600">Galeri yükleniyor...</p>
                 </div>
               </div>
@@ -369,13 +369,13 @@ export default function GaleriPage() {
 
       {/* Lightbox Modal (Photo / Video) amkta*/}
       <Dialog open={!!selectedImage || !!selectedVideo} onOpenChange={() => { setSelectedImage(null); setSelectedVideo(null); }}>
-        <DialogContent className="max-w-xl p-0 bg-white rounded-2xl overflow-hidden border border-pink-100 shadow-xl">
+        <DialogContent className="max-w-xl p-0 bg-white rounded-2xl overflow-hidden border border-primary/10 shadow-xl">
           <div className="relative">
             {/* Close Button qwqweweweaw */}
         
             <button
               onClick={() => { setSelectedImage(null); setSelectedVideo(null); }}
-              className="absolute top-3 right-3 z-10 w-8 h-8 flex items-center justify-center rounded-full bg-white shadow-md hover:bg-pink-50 border border-pink-100 text-pink-600 transition"
+              className="absolute top-3 right-3 z-10 w-8 h-8 flex items-center justify-center rounded-full bg-white shadow-md hover:bg-primary/5 border border-primary/10 text-primary transition"
               aria-label="Kapat"
             >
               <X size={18} />

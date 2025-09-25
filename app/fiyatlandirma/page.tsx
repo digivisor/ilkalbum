@@ -84,7 +84,7 @@ export default async function FiyatlandirmaPage() {
 
       <div className="pt-20">
   {/* Hero */}
-  <div className="py-20 bg-[linear-gradient(135deg,#ffffff,#fff6fa,#ffe6ef,#ffd4e7)]">
+  <div className="hero-gradient py-20">
           <div className="container text-center">
             <h1 className="text-4xl md:text-5xl font-playfair font-bold text-gray-900 mb-6">Fiyatlandırma</h1>
           <p className="text-lg md:text-xl text-gray-600 max-w-3xl mx-auto">
@@ -95,7 +95,7 @@ export default async function FiyatlandirmaPage() {
       </div>
 
       {/* Kampanya Banner */}
-<section className="py-12 bg-gradient-to-r from-pink-500 to-rose-500">
+<section className="py-12 bg-gradient-to-r from-primary to-rose-500">
   <div className="container text-center text-white">
     {campaign ? (
       <>
@@ -118,17 +118,17 @@ export default async function FiyatlandirmaPage() {
 
 
       {/* Paketler ve ek bölümler (client) */}
-      <section className="py-20 bg-gradient-to-b from-white to-pink-50">
+      <section className="py-20 bg-gradient-to-b from-white to-primary/5">
         <div className="container">
           {packages.length > 0 ? (
             <PricingClient packages={packages} campaign={campaign} />
           ) : (
             <div className="text-center py-16">
               <div className="max-w-md mx-auto">
-                <Star className="w-16 h-16 text-pink-500 mx-auto mb-6 opacity-70" />
+                <Star className="w-16 h-16 text-primary mx-auto mb-6 opacity-70" />
                 <h3 className="text-2xl font-semibold text-gray-900 mb-4">Paketler şu anda yüklenemedi</h3>
                 <p className="text-gray-600 mb-6">Sunucuya ulaşılamadı veya henüz paket eklenmedi. Daha sonra tekrar deneyin ya da bizimle iletişime geçin.</p>
-                <a href="/iletisim" className="inline-flex items-center px-6 py-3 rounded-lg bg-pink-600 text-white font-medium hover:bg-pink-700 transition-colors">
+                <a href="/iletisim" className="inline-flex items-center px-6 py-3 rounded-lg bg-primary text-white font-medium hover:bg-primary/90 transition-colors">
                   İletişime Geç
                 </a>
               </div>

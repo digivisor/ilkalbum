@@ -1,10 +1,11 @@
 'use client';
 
 import { useState } from 'react';
-import { Check, X } from 'lucide-react';
+import { Check, X, ArrowRight } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Dialog, DialogContent } from '@/components/ui/dialog';
 import { ReservationModal } from '@/components/ReservationModal';
+import Link from 'next/link';
 
 interface Category {
   id: string;
@@ -18,6 +19,16 @@ interface CategorySectionProps {
   category: Category;
   isReversed?: boolean;
 }
+
+const getDetailUrl = (categoryId: string): string => {
+  const urlMap: Record<string, string> = {
+    'dis-cekim': '/antalya/dis-cekim',
+    'dugun': '/antalya/dugun-fotografcisi', 
+    'nisan': '/antalya/nisan-cekimi',
+    'bebek': '/antalya/yenidogan-bebek-cekimi'
+  };
+  return urlMap[categoryId] || '/';
+};
 
 export function CategorySection({ category, isReversed = false }: CategorySectionProps) {
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
@@ -39,19 +50,29 @@ export function CategorySection({ category, isReversed = false }: CategorySectio
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-8">
                 {category.features.map((feature, index) => (
                   <div key={index} className="flex items-center space-x-3">
-                    <Check className="w-5 h-5 text-pink-600 flex-shrink-0" />
+                    <Check className="w-5 h-5 text-primary flex-shrink-0" />
                     <span className="text-gray-700">{feature}</span>
                   </div>
                 ))}
               </div>
               
-              <Button 
-                size="lg" 
-                className="bg-pink-600 hover:bg-pink-700 text-white px-8 py-3 rounded-full"
-                onClick={() => setIsReservationModalOpen(true)}
-              >
-                Rezervasyon Yap
-              </Button>
+              <div className="flex flex-col sm:flex-row gap-4">
+                <Button 
+                  size="lg" 
+                  className="bg-primary hover:bg-primary/90 text-white px-8 py-3 rounded-full text-base font-semibold h-12 min-w-[180px]"
+                  onClick={() => setIsReservationModalOpen(true)}
+                >
+                  Rezervasyon Yap
+                </Button>
+                
+                <Link 
+                  href={getDetailUrl(category.id)}
+                  className="bg-transparent border border-primary text-primary hover:bg-primary hover:text-white px-8 py-3 rounded-full font-semibold text-base transition-all duration-300 inline-flex items-center justify-center h-12 min-w-[180px]"
+                >
+                  <ArrowRight className="w-4 h-4 mr-2" />
+                  Detayları Gör
+                </Link>
+              </div>
             </div>
             
             <div className={`${isReversed ? 'lg:order-1' : ''}`}>

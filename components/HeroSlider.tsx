@@ -76,7 +76,7 @@ export function HeroSlider() {
               <Link href="/galeri">
                 <Button
                   size="lg"
-                  className="bg-pink-600 hover:bg-pink-700 text-white px-8 py-3 text-lg rounded-full transition-all duration-300 hover:scale-105"
+                  className="bg-primary hover:bg-primary/90 text-white px-8 py-3 text-lg rounded-full transition-all duration-300 hover:scale-105"
                 >
                   Portföyümüzü İnceleyin
                 </Button>
@@ -88,35 +88,58 @@ export function HeroSlider() {
         </div>
       ))}
 
-      {/* Navigation Arrows */}
+      {/* Navigation Arrows - Desktop */}
       <Button
         variant="outline"
         size="icon"
-        className="absolute left-4 top-1/2 transform -translate-y-1/2 z-20 bg-white/10 backdrop-blur-sm border-white/20 text-white hover:bg-white/20"
+        className="hidden md:block absolute left-4 top-1/2 transform -translate-y-1/2 z-20 bg-white/10 backdrop-blur-sm border-white/20 text-white hover:bg-white/20 w-10 h-10"
         onClick={prevSlide}
       >
-        <ChevronLeft size={24} />
+        <ChevronLeft className="w-6 h-6" />
       </Button>
       <Button
         variant="outline"
         size="icon"
-        className="absolute right-4 top-1/2 transform -translate-y-1/2 z-20 bg-white/10 backdrop-blur-sm border-white/20 text-white hover:bg-white/20"
+        className="hidden md:block absolute right-4 top-1/2 transform -translate-y-1/2 z-20 bg-white/10 backdrop-blur-sm border-white/20 text-white hover:bg-white/20 w-10 h-10"
         onClick={nextSlide}
       >
-        <ChevronRight size={24} />
+        <ChevronRight className="w-6 h-6" />
       </Button>
 
-      {/* Dots Indicator */}
-      <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 z-20 flex space-x-2">
-        {slides.map((_, index) => (
-          <button
-            key={index}
-            className={`w-3 h-3 rounded-full transition-all duration-300 ${
-              index === currentSlide ? 'bg-white' : 'bg-white/50'
-            }`}
-            onClick={() => setCurrentSlide(index)}
-          />
-        ))}
+      {/* Navigation Controls - Mobile & Desktop */}
+      <div className="absolute bottom-6 md:bottom-8 left-1/2 transform -translate-x-1/2 z-20 flex items-center justify-center gap-4">
+        {/* Mobile Navigation Arrows */}
+        <Button
+          variant="outline"
+          size="icon"
+          className="md:hidden bg-white/10 backdrop-blur-sm border-white/20 text-white hover:bg-white/20 w-8 h-8"
+          onClick={prevSlide}
+        >
+          <ChevronLeft className="w-4 h-4" />
+        </Button>
+        
+        {/* Dots Indicator */}
+        <div className="flex space-x-2">
+          {slides.map((_, index) => (
+            <button
+              key={index}
+              className={`w-2 h-2 md:w-3 md:h-3 rounded-full transition-all duration-300 ${
+                index === currentSlide ? 'bg-white' : 'bg-white/50'
+              }`}
+              onClick={() => setCurrentSlide(index)}
+            />
+          ))}
+        </div>
+
+        {/* Mobile Navigation Arrows */}
+        <Button
+          variant="outline"
+          size="icon"
+          className="md:hidden bg-white/10 backdrop-blur-sm border-white/20 text-white hover:bg-white/20 w-8 h-8"
+          onClick={nextSlide}
+        >
+          <ChevronRight className="w-4 h-4" />
+        </Button>
       </div>
     </section>
   );
