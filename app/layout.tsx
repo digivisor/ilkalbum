@@ -11,6 +11,9 @@ export const metadata: Metadata = {
   title: 'İlkalbüm - Düğün Fotoğrafçılığı',
   description: 'Düğün, nişan, bebek ve dış çekim fotoğrafçılığı hizmetleri. Özel anlarınızı unutulmaz kılıyoruz.',
   keywords: 'düğün fotoğrafçısı, nişan çekimi, bebek fotoğrafları, dış çekim, wedding photographer',
+  icons: {
+    icon: '/favicon.ico', 
+  },
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
