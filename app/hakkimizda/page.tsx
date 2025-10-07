@@ -32,7 +32,7 @@ export default function HakkimizdaPage() {
                 <div className="relative">
                   <img
                     src="/düğün9.jpg"
-                    alt="İlkalbüm Stüdyo"
+                    alt="Antalya düğün fotoğraf stüdyosu, profesyonel ekip, gelin damat çekimi, İlkalbüm fotoğrafçılık"
                     className="w-full h-96 object-cover rounded-2xl shadow-lg"
                   />
                   <div className="absolute -bottom-6 -right-6 bg-primary text-white p-4 rounded-2xl shadow-lg">

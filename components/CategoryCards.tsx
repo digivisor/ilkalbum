@@ -7,8 +7,9 @@ const categories = [
     id: 'dugun',
     title: 'Düğün Fotoğrafçılığı',
     description: 'Hayatınızın en özel gününü sanatsal bir dokunuşla ölümsüzleştirin. Gelinlikten takılara, nikahtan davete kadar her anı yakalıyoruz.',
-    image: 'https://images.pexels.com/photos/1024993/pexels-photo-1024993.jpeg?auto=compress&cs=tinysrgb&w=800&h=600&fit=crop',
+    image: '/düğün.jpeg',
     href: '/kategoriler#dugun',
+    alt: 'Antalya düğün fotoğrafçısı gelin damat dış çekim profesyonel düğün fotoğrafları',
   },
   {
     id: 'nisan',
@@ -16,6 +17,7 @@ const categories = [
     description: 'Birlikteliğinizin başlangıcını romantik ve samimi karelerle belgeliyoruz. Aşkınızın en saf halini objektifimizle yakalıyoruz.',
     image: '/nisan2.jpg',
     href: '/kategoriler#nisan',
+    alt: 'Antalya nişan çekimi romantik çift fotoğrafları dış mekan nişan fotoğrafçısı',
   },
   {
     id: 'bebek',
@@ -23,6 +25,7 @@ const categories = [
     description: 'Minik meleklerinizin ilk günlerini, gülümsemelerini ve büyüme anlarını sevgiyle fotoğraflıyoruz.',
     image: '/bebek1.jpg',
     href: '/kategoriler#bebek',
+    alt: 'Antalya bebek fotoğrafçısı yenidoğan bebek çekimi aile bebek portreleri',
   },
   {
     id: 'dis-cekim',
@@ -30,6 +33,7 @@ const categories = [
     description: 'Doğanın güzelliği ile birleşen portföy çekimleri. Parklar, sahiller ve şehrin en güzel köşelerinde unutulmaz kareler.',
     image: '/nisan3.jpg',
     href: '/kategoriler#dis-cekim',
+    alt: 'Antalya dış çekim fotoğrafçısı doğa sahil park portre profesyonel fotoğraflar',
   },
 ];
 
@@ -56,7 +60,7 @@ export function CategoryCards() {
               <div className="relative h-80 overflow-hidden">
                 <img
                   src={category.image}
-                  alt={category.title}
+                  alt={category.alt}
                   className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />

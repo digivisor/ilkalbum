@@ -6,6 +6,7 @@ import { AIPhotoComparison } from '../components/AIPhotoComparison';
 import { Footer } from '@/components/Footer';
 import { Header } from '@/components/Header';
 import { ServerPricingService } from '@/services';
+import DomeGallery from '@/components/DomeGallery';
 
 export const metadata: Metadata = {
   title: 'İlkalbüm - Düğün Fotoğrafçılığı | Anasayfa',
@@ -42,9 +43,13 @@ export default async function Home() {
       <Header />
       <HeroSlider />
       <CategoryCards />
+            <div style={{ width: '99vw', height: '100vh' }}>
+      <DomeGallery />
+    </div>
           {campaign && (
         <CampaignBanner campaign={campaign} />
       )}
+     
       {/* <AIPhotoComparison /> */}
       <Footer />
     </main>

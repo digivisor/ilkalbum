@@ -85,7 +85,7 @@ export function CategoryGallery({
                   {!imageError.has(String(item.id)) ? (
                     <Image
                       src={item.src}
-                      alt={item.title}
+                      alt={`${item.title} | ${categoryName} fotoğrafı | Antalya profesyonel fotoğrafçılık düğün nişan bebek dış çekim`}
                       fill
                       sizes={index === 0 ? "(max-width: 768px) 100vw, 50vw" : "(max-width: 768px) 50vw, 25vw"}
                       className="object-cover transition-transform duration-300 group-hover:scale-105"
@@ -157,7 +157,7 @@ export function CategoryGallery({
                   <div className="relative">
                     <Image
                       src={selectedMedia.src}
-                      alt={selectedMedia.title}
+                      alt={`${selectedMedia.title} | ${categoryName} fotoğrafı | Antalya profesyonel fotoğrafçılık düğün nişan bebek dış çekim`}
                       width={1200}
                       height={800}
                       className="max-w-full max-h-[90vh] w-auto h-auto rounded-lg shadow-2xl object-contain"

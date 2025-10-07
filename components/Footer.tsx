@@ -29,7 +29,7 @@ export function Footer() {
               Düğün, nişan ve yaşamın tüm güzel anları için profesyonel fotoğrafçılık hizmeti.
             </p>
             <div className="flex space-x-4">
-              <a href="#" className="text-primary hover:text-burgundy-700 transition-colors">
+              <a href="https://www.instagram.com/ilkalbum" className="text-primary hover:text-burgundy-700 transition-colors">
                 <Instagram size={20} />
               </a>
               <a href="#" className="text-primary hover:text-burgundy-700 transition-colors">
@@ -70,16 +70,16 @@ export function Footer() {
           <div className="space-y-4">
             <h3 className="text-lg font-semibold text-gray-900">Hizmetlerimiz</h3>
             <nav className="space-y-2">
-              <Link href="/kategoriler" className="block text-gray-600 hover:text-primary transition-colors text-sm">
+              <Link href="/kategoriler/#dugun" className="block text-gray-600 hover:text-primary transition-colors text-sm">
                 Düğün Fotoğrafçılığı
               </Link>
-              <Link href="/kategoriler" className="block text-gray-600 hover:text-primary transition-colors text-sm">
+              <Link href="/kategoriler/#nisan" className="block text-gray-600 hover:text-primary transition-colors text-sm">
                 Nişan Çekimi
               </Link>
-              <Link href="/kategoriler" className="block text-gray-600 hover:text-primary transition-colors text-sm">
+              <Link href="/kategoriler/#bebek" className="block text-gray-600 hover:text-primary transition-colors text-sm">
                 Bebek Fotoğrafları
               </Link>
-              <Link href="/kategoriler" className="block text-gray-600 hover:text-primary transition-colors text-sm">
+              <Link href="/kategoriler/#dis-cekim" className="block text-gray-600 hover:text-primary transition-colors text-sm">
                 Dış Çekim
               </Link>
               <div className="pt-4">

@@ -239,7 +239,7 @@ export default function GaleriPage() {
                     >
                       <img
                         src={photo.src}
-                        alt={photo.title}
+                        alt={`${photo.title} | ${photo.category} fotoğrafı | Antalya profesyonel fotoğrafçılık düğün nişan bebek dış çekim`}
                         className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
                         loading="lazy"
                       />
@@ -384,7 +384,7 @@ export default function GaleriPage() {
               <div className="pt-4 px-4 pb-6 text-center">
                 <img
                   src={selectedImage.src}
-                  alt={selectedImage.title}
+                  alt={`${selectedImage.title} | ${selectedImage.category} fotoğrafı | Antalya profesyonel fotoğrafçılık düğün nişan bebek dış çekim`}
                   className="w-full h-auto max-h-[420px] object-contain rounded-lg mb-4"
                 />
                 <h3 className="text-sm font-medium text-gray-700">{selectedImage.title}</h3>
